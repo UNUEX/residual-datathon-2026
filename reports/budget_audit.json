@@ -1,0 +1,46 @@
+{
+  "base_households": 11674,
+  "base_positive": 107,
+  "participants_all_quarters": 11709,
+  "base_participants_all_quarters": 11408,
+  "positive_participants_all_quarters": 104,
+  "quarters": [
+    {
+      "quarter": 1,
+      "visit_households": 12000,
+      "participants": 11960,
+      "refused": 40,
+      "missing_response": 0,
+      "base_participants": 11643,
+      "positive_participants": 107
+    },
+    {
+      "quarter": 2,
+      "visit_households": 12000,
+      "participants": 11846,
+      "refused": 154,
+      "missing_response": 0,
+      "base_participants": 11534,
+      "positive_participants": 107
+    },
+    {
+      "quarter": 3,
+      "visit_households": 12000,
+      "participants": 11740,
+      "refused": 260,
+      "missing_response": 0,
+      "base_participants": 11437,
+      "positive_participants": 104
+    },
+    {
+      "quarter": 4,
+      "visit_households": 12000,
+      "participants": 11709,
+      "refused": 291,
+      "missing_response": 0,
+      "base_participants": 11408,
+      "positive_participants": 104
+    }
+  ],
+  "note": "Coverage only: absent section rows are not assumed to mean zero expenditure."
+}

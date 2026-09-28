@@ -1,0 +1,110 @@
+{
+  "year": 2024,
+  "tables": 52,
+  "household_count": 12000,
+  "persons": 41821,
+  "housing_households": 11704,
+  "subject_respondents": 11931,
+  "complete_households": 11674,
+  "complete_coverage_pct": 97.28333333333333,
+  "target_valid": 11931,
+  "target_positive": 109,
+  "target_positive_pct": 0.9135864554521833,
+  "always_negative_accuracy_pct": 99.08641354454781,
+  "target_positive_in_complete": 107,
+  "target_distribution": [
+    {
+      "code": 1,
+      "count": 15,
+      "pct": 0.1257229067136032
+    },
+    {
+      "code": 2,
+      "count": 94,
+      "pct": 0.7878635487385802
+    },
+    {
+      "code": 3,
+      "count": 8735,
+      "pct": 73.21263934288828
+    },
+    {
+      "code": 4,
+      "count": 2411,
+      "pct": 20.20786187243316
+    },
+    {
+      "code": 5,
+      "count": 596,
+      "pct": 4.995390160087168
+    },
+    {
+      "code": 6,
+      "count": 80,
+      "pct": 0.6705221691392171
+    }
+  ],
+  "housing_area_contradictions": 46,
+  "scale_summary": [
+    {
+      "column": "GR1",
+      "label": "Жизнь в целом",
+      "total": 11931,
+      "valid": 11918,
+      "code89": 13,
+      "blank": 0,
+      "mean_valid": 7.60622587682497,
+      "mean_naive": 7.694912413041656
+    },
+    {
+      "column": "GR2",
+      "label": "Условия жизни",
+      "total": 11931,
+      "valid": 11903,
+      "code89": 28,
+      "blank": 0,
+      "mean_valid": 7.635890111736537,
+      "mean_naive": 7.826837649819797
+    },
+    {
+      "column": "GR3",
+      "label": "Здоровье",
+      "total": 11931,
+      "valid": 11888,
+      "code89": 43,
+      "blank": 0,
+      "mean_valid": 7.428919919246299,
+      "mean_naive": 7.722906713603218
+    },
+    {
+      "column": "GR4",
+      "label": "Финансовое положение",
+      "total": 11931,
+      "valid": 11626,
+      "code89": 305,
+      "blank": 0,
+      "mean_valid": 7.15448133493893,
+      "mean_naive": 9.246752158243233
+    },
+    {
+      "column": "GR5",
+      "label": "Профессиональная деятельность",
+      "total": 11931,
+      "valid": 9804,
+      "code89": 2127,
+      "blank": 0,
+      "mean_valid": 7.881272949816402,
+      "mean_naive": 22.34272064370128
+    },
+    {
+      "column": "GR8",
+      "label": "Качество жилья",
+      "total": 11931,
+      "valid": 11842,
+      "code89": 89,
+      "blank": 0,
+      "mean_valid": 7.579716264144571,
+      "mean_naive": 8.187075685189841
+    }
+  ]
+}

@@ -1,0 +1,13 @@
+.venv/
+__pycache__/
+*.pyc
+.env
+.env.*
+data/
+private_outputs/
+*.tar.gz
+*.zip
+.DS_Store
+presentation/
+*.pptx
+
