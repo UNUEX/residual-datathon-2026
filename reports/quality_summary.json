@@ -1,0 +1,332 @@
+{
+  "version": "0.2",
+  "year": 2024,
+  "scope": "D006 + D008",
+  "model": "Isolation Forest",
+  "n_estimators": 200,
+  "max_samples": 256,
+  "features": [
+    "OB_PL",
+    "J_PL",
+    "KOL_K",
+    "household_size",
+    "area_per_person",
+    "area_per_room",
+    "living_share"
+  ],
+  "housing_rows": 11704,
+  "training_rows": 11658,
+  "rule_flags": 46,
+  "living_exceeds_total": 46,
+  "missing_or_nonpositive": 0,
+  "queue_size": 250,
+  "ml_queue": 204,
+  "input_sha256": "cf49198ae858a5b94e43f806be40ad357e01de68cf6b4d959e34a55095725730",
+  "histogram": [
+    {
+      "label": "0–10",
+      "count": 1008
+    },
+    {
+      "label": "10–20",
+      "count": 4222
+    },
+    {
+      "label": "20–30",
+      "count": 2675
+    },
+    {
+      "label": "30–40",
+      "count": 1498
+    },
+    {
+      "label": "40–60",
+      "count": 1358
+    },
+    {
+      "label": "60–100",
+      "count": 794
+    },
+    {
+      "label": "100+",
+      "count": 149
+    }
+  ],
+  "benchmark": {
+    "review_fraction": 0.1,
+    "injection_fraction": 0.06,
+    "seeds": [
+      17,
+      29,
+      43,
+      71,
+      101
+    ],
+    "runs": [
+      {
+        "seed": 17,
+        "method": "rules",
+        "train": 8160,
+        "test": 3498,
+        "reviewed": 350,
+        "injected": 207,
+        "found": 79,
+        "recall": 0.38164251207729466,
+        "precision": 0.2257142857142857,
+        "unchanged_reviewed": 271,
+        "living_exceeds_total": 1.0,
+        "area_unit_x10": 0.07246376811594203,
+        "rooms_x8": 0.07246376811594203
+      },
+      {
+        "seed": 17,
+        "method": "rules_robust",
+        "train": 8160,
+        "test": 3498,
+        "reviewed": 350,
+        "injected": 207,
+        "found": 207,
+        "recall": 1.0,
+        "precision": 0.5914285714285714,
+        "unchanged_reviewed": 143,
+        "living_exceeds_total": 1.0,
+        "area_unit_x10": 1.0,
+        "rooms_x8": 1.0
+      },
+      {
+        "seed": 17,
+        "method": "rules_ml",
+        "train": 8160,
+        "test": 3498,
+        "reviewed": 350,
+        "injected": 207,
+        "found": 172,
+        "recall": 0.8309178743961353,
+        "precision": 0.49142857142857144,
+        "unchanged_reviewed": 178,
+        "living_exceeds_total": 1.0,
+        "area_unit_x10": 1.0,
+        "rooms_x8": 0.4927536231884058
+      },
+      {
+        "seed": 29,
+        "method": "rules",
+        "train": 8160,
+        "test": 3498,
+        "reviewed": 350,
+        "injected": 207,
+        "found": 78,
+        "recall": 0.37681159420289856,
+        "precision": 0.22285714285714286,
+        "unchanged_reviewed": 272,
+        "living_exceeds_total": 1.0,
+        "area_unit_x10": 0.07246376811594203,
+        "rooms_x8": 0.057971014492753624
+      },
+      {
+        "seed": 29,
+        "method": "rules_robust",
+        "train": 8160,
+        "test": 3498,
+        "reviewed": 350,
+        "injected": 207,
+        "found": 207,
+        "recall": 1.0,
+        "precision": 0.5914285714285714,
+        "unchanged_reviewed": 143,
+        "living_exceeds_total": 1.0,
+        "area_unit_x10": 1.0,
+        "rooms_x8": 1.0
+      },
+      {
+        "seed": 29,
+        "method": "rules_ml",
+        "train": 8160,
+        "test": 3498,
+        "reviewed": 350,
+        "injected": 207,
+        "found": 174,
+        "recall": 0.8405797101449275,
+        "precision": 0.49714285714285716,
+        "unchanged_reviewed": 176,
+        "living_exceeds_total": 1.0,
+        "area_unit_x10": 1.0,
+        "rooms_x8": 0.5217391304347826
+      },
+      {
+        "seed": 43,
+        "method": "rules",
+        "train": 8160,
+        "test": 3498,
+        "reviewed": 350,
+        "injected": 207,
+        "found": 77,
+        "recall": 0.3719806763285024,
+        "precision": 0.22,
+        "unchanged_reviewed": 273,
+        "living_exceeds_total": 1.0,
+        "area_unit_x10": 0.07246376811594203,
+        "rooms_x8": 0.043478260869565216
+      },
+      {
+        "seed": 43,
+        "method": "rules_robust",
+        "train": 8160,
+        "test": 3498,
+        "reviewed": 350,
+        "injected": 207,
+        "found": 207,
+        "recall": 1.0,
+        "precision": 0.5914285714285714,
+        "unchanged_reviewed": 143,
+        "living_exceeds_total": 1.0,
+        "area_unit_x10": 1.0,
+        "rooms_x8": 1.0
+      },
+      {
+        "seed": 43,
+        "method": "rules_ml",
+        "train": 8160,
+        "test": 3498,
+        "reviewed": 350,
+        "injected": 207,
+        "found": 167,
+        "recall": 0.8067632850241546,
+        "precision": 0.47714285714285715,
+        "unchanged_reviewed": 183,
+        "living_exceeds_total": 1.0,
+        "area_unit_x10": 1.0,
+        "rooms_x8": 0.42028985507246375
+      },
+      {
+        "seed": 71,
+        "method": "rules",
+        "train": 8160,
+        "test": 3498,
+        "reviewed": 350,
+        "injected": 207,
+        "found": 82,
+        "recall": 0.3961352657004831,
+        "precision": 0.2342857142857143,
+        "unchanged_reviewed": 268,
+        "living_exceeds_total": 1.0,
+        "area_unit_x10": 0.07246376811594203,
+        "rooms_x8": 0.11594202898550725
+      },
+      {
+        "seed": 71,
+        "method": "rules_robust",
+        "train": 8160,
+        "test": 3498,
+        "reviewed": 350,
+        "injected": 207,
+        "found": 207,
+        "recall": 1.0,
+        "precision": 0.5914285714285714,
+        "unchanged_reviewed": 143,
+        "living_exceeds_total": 1.0,
+        "area_unit_x10": 1.0,
+        "rooms_x8": 1.0
+      },
+      {
+        "seed": 71,
+        "method": "rules_ml",
+        "train": 8160,
+        "test": 3498,
+        "reviewed": 350,
+        "injected": 207,
+        "found": 169,
+        "recall": 0.8164251207729468,
+        "precision": 0.4828571428571429,
+        "unchanged_reviewed": 181,
+        "living_exceeds_total": 1.0,
+        "area_unit_x10": 1.0,
+        "rooms_x8": 0.4492753623188406
+      },
+      {
+        "seed": 101,
+        "method": "rules",
+        "train": 8160,
+        "test": 3498,
+        "reviewed": 350,
+        "injected": 207,
+        "found": 77,
+        "recall": 0.3719806763285024,
+        "precision": 0.22,
+        "unchanged_reviewed": 273,
+        "living_exceeds_total": 1.0,
+        "area_unit_x10": 0.057971014492753624,
+        "rooms_x8": 0.057971014492753624
+      },
+      {
+        "seed": 101,
+        "method": "rules_robust",
+        "train": 8160,
+        "test": 3498,
+        "reviewed": 350,
+        "injected": 207,
+        "found": 207,
+        "recall": 1.0,
+        "precision": 0.5914285714285714,
+        "unchanged_reviewed": 143,
+        "living_exceeds_total": 1.0,
+        "area_unit_x10": 1.0,
+        "rooms_x8": 1.0
+      },
+      {
+        "seed": 101,
+        "method": "rules_ml",
+        "train": 8160,
+        "test": 3498,
+        "reviewed": 350,
+        "injected": 207,
+        "found": 166,
+        "recall": 0.8019323671497585,
+        "precision": 0.4742857142857143,
+        "unchanged_reviewed": 184,
+        "living_exceeds_total": 1.0,
+        "area_unit_x10": 1.0,
+        "rooms_x8": 0.4057971014492754
+      }
+    ],
+    "summary": [
+      {
+        "method": "rules",
+        "recall_mean": 0.37971014492753624,
+        "recall_min": 0.3719806763285024,
+        "recall_max": 0.3961352657004831,
+        "precision_mean": 0.2245714285714286,
+        "by_scenario": {
+          "living_exceeds_total": 1.0,
+          "area_unit_x10": 0.06956521739130435,
+          "rooms_x8": 0.06956521739130435
+        }
+      },
+      {
+        "method": "rules_robust",
+        "recall_mean": 1.0,
+        "recall_min": 1.0,
+        "recall_max": 1.0,
+        "precision_mean": 0.5914285714285714,
+        "by_scenario": {
+          "living_exceeds_total": 1.0,
+          "area_unit_x10": 1.0,
+          "rooms_x8": 1.0
+        }
+      },
+      {
+        "method": "rules_ml",
+        "recall_mean": 0.8193236714975847,
+        "recall_min": 0.8019323671497585,
+        "recall_max": 0.8405797101449275,
+        "precision_mean": 0.4845714285714286,
+        "by_scenario": {
+          "living_exceeds_total": 1.0,
+          "area_unit_x10": 1.0,
+          "rooms_x8": 0.4579710144927537
+        }
+      }
+    ],
+    "caveat": "Controlled perturbations of held-out synthetic records; not accuracy on real errors. Unchanged controls may contain unknown errors."
+  }
+}
