@@ -1,0 +1,10 @@
+{
+  "mcpServers": {
+    "residual-housing": {
+      "command": "C:/PATH/TO/residual-datathon-2026/.venv/Scripts/python.exe",
+      "args": ["-X", "utf8", "-m", "src.mcp_server", "--data-dir", "C:/PATH/TO/synthetic_microdata_2021-2024_20260921"],
+      "cwd": "C:/PATH/TO/residual-datathon-2026",
+      "env": {"PYTHONPATH": "C:/PATH/TO/residual-datathon-2026"}
+    }
+  }
+}

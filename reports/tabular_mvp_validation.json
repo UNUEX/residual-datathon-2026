@@ -1,0 +1,170 @@
+{
+  "date": "2026-10-12",
+  "model": "qwen3:1.7b",
+  "provider": "local Ollama",
+  "mocked": false,
+  "scope": "Два открытых сценария, не независимая оценка точности. После ложного отказа первого сценария уточнён промпт и повторён тот же вопрос.",
+  "initial_failure": {
+    "file": "schools.xlsx",
+    "question": "Сравни среднее «Учащиеся» по «Тип школы» за 2025 год",
+    "status": "unsupported",
+    "finding": "Модель ошибочно потребовала числовой тип для категориальной группировки.",
+    "fix": "Явные правила ready, number→metrics, category→group_by и достаточности метаданных для плана."
+  },
+  "calculation_code_sha256": "24a6a709872060cfb29acb9f9e9f6ac38760a731c0d787e76ed514ee469f3f03",
+  "cases": [
+    {
+      "file": "schools.xlsx",
+      "question": "Сравни среднее «Учащиеся» по «Тип школы» за 2025 год",
+      "model_attempts": 1,
+      "status": "ready",
+      "aggregation": "mean",
+      "metrics": [
+        "c2"
+      ],
+      "group_by": "c1",
+      "result": [
+        {
+          "group": "Городская",
+          "rows": 8,
+          "values": {
+            "c2": 518.5
+          },
+          "valid_counts": {
+            "c2": 8
+          },
+          "missing_counts": {
+            "c2": 0
+          }
+        },
+        {
+          "group": "Сельская",
+          "rows": 8,
+          "values": {
+            "c2": 371.571429
+          },
+          "valid_counts": {
+            "c2": 7
+          },
+          "missing_counts": {
+            "c2": 1
+          }
+        },
+        {
+          "group": "Лицей",
+          "rows": 8,
+          "values": {
+            "c2": 466.5
+          },
+          "valid_counts": {
+            "c2": 8
+          },
+          "missing_counts": {
+            "c2": 0
+          }
+        }
+      ],
+      "quality": {
+        "total_rows": 24,
+        "grouping_missing_rows": 0,
+        "invalid_numeric": {
+          "c2": 0
+        }
+      },
+      "browser_elapsed_ms": 11067,
+      "numbers_independently_checked": true
+    },
+    {
+      "file": "budget.html",
+      "question": "Сравни сумму «Расходы» по «Регион» за 2025 год",
+      "model_attempts": 1,
+      "status": "ready",
+      "aggregation": "sum",
+      "metrics": [
+        "c1"
+      ],
+      "group_by": "c0",
+      "result": [
+        {
+          "group": "Север",
+          "rows": 3,
+          "values": {
+            "c1": 3000.5
+          },
+          "valid_counts": {
+            "c1": 3
+          },
+          "missing_counts": {
+            "c1": 0
+          }
+        },
+        {
+          "group": "Юг",
+          "rows": 3,
+          "values": {
+            "c1": 2350.5
+          },
+          "valid_counts": {
+            "c1": 3
+          },
+          "missing_counts": {
+            "c1": 0
+          }
+        },
+        {
+          "group": "Запад",
+          "rows": 3,
+          "values": {
+            "c1": 2100.25
+          },
+          "valid_counts": {
+            "c1": 3
+          },
+          "missing_counts": {
+            "c1": 0
+          }
+        },
+        {
+          "group": "Восток",
+          "rows": 3,
+          "values": {
+            "c1": 2650.25
+          },
+          "valid_counts": {
+            "c1": 3
+          },
+          "missing_counts": {
+            "c1": 0
+          }
+        }
+      ],
+      "quality": {
+        "total_rows": 12,
+        "grouping_missing_rows": 0,
+        "invalid_numeric": {
+          "c1": 0
+        }
+      },
+      "browser_elapsed_ms": 6110,
+      "numbers_independently_checked": true
+    }
+  ],
+  "verification": {
+    "automated_tests": 119,
+    "new_table_tests": 47,
+    "tests_use_stub_model": true,
+    "browser_model_is_real": true,
+    "downloaded_python_reproduced_actual_html_report": true,
+    "five_export_downloads": true,
+    "history_reload": true,
+    "question_edit_clears_stale_plan": true,
+    "javascript_errors": 0,
+    "mobile_width_px": 390,
+    "mobile_horizontal_overflow": false
+  },
+  "limits": [
+    "План проверяет пользователь; понимание любого естественного вопроса не гарантируется.",
+    "Поддержаны среднее, медиана и сумма одной таблицы, максимум одно поле группировки.",
+    "Проверка на учебных вымышленных данных; ведомственного пилота нет."
+  ]
+}

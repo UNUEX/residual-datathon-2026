@@ -1,0 +1,73 @@
+Residual current-pipeline benchmark protocol v1 — fixed before results, 2026-10-12
+
+Purpose and boundary
+Compare candidate selection at the same review budget on copies of the original
+full D006 + D008 2024 contest package. These are known synthetic alterations,
+NOT expert-confirmed real errors. Unchanged records are not known to be correct.
+No expert or mentor has approved the scenarios. This is an internal stress test.
+The original CSV files remain unchanged. The old 70/30 holdout result is not reused.
+
+Evaluation mode
+Run analyze_package on the altered full package, with changes applied BEFORE
+analysis. The production engine fits Isolation Forest and scores that same package;
+all its existing validation/rule exclusions remain active. Model seed remains 17.
+Alteration seeds: 17, 29, 43. No tuning or selection of seeds after seeing results.
+Select disjoint targets only from the original records eligible for model fitting.
+Each regime alters floor(0.01 * original eligible records) rows per type: three
+types, approximately 3% overall. This leaves space within B=300 for original and
+new explicit signals and permits a fixed review budget. Other rows are untouched.
+If explicit signals exceed the base budget, fail explicitly rather than dropping
+rules or silently comparing different budgets.
+
+Preset regime 1: gross
+1. living_exceeds_total: set J_PL = 1.25 * OB_PL.
+2. area_unit_x10: multiply both OB_PL and J_PL by 10.
+3. rooms_x8: multiply KOL_K by 8.
+These reproduce the OLD scenario mechanisms, not its prevalence or validation mode.
+
+Preset regime 2: moderate
+1. area_scale_x1_4: multiply both areas by 1.4, preserving living share.
+2. rooms_plus_one: increase KOL_K by exactly one, preserving an integer count.
+3. living_share_shift: if current living share <= 0.65, add 0.15 to that share;
+   otherwise subtract 0.15. Set J_PL = OB_PL * new share. Values remain positive
+   and below/equal to total area; no explicit contradiction is intentionally added.
+These mimic scale mismatch, adjacent-value entry, and composition changes. They may
+still be valid plausible records, which is precisely why labels mean alterations,
+not adjudicated errors. Parameters are NOT optimized for ML and will not be changed
+after results. Cross-variable relations in synthetic data may be weakened.
+
+Equal-budget methods
+All methods include exactly the same explicit signals first, in the engine order.
+Tie breaks use household ID as in the engine. Scores are not rounded for selection.
+A common base contains all explicit signals plus robust candidates up to 250 rows.
+1. robust_300: extend the common base with the next 50 robust candidates.
+2. base_250_ml_50: extend with the best 50 ML candidates outside the common base.
+3. base_250_random_50: extend with 50 uniformly selected eligible candidates outside
+   the base, using RNG seed alteration_seed + 10000, independently of target draws.
+Every method reviews exactly 300 distinct records; exactly 50 are supplementary.
+All source rows excluded by explicit signals retain those signals. No threshold is
+tuned. Production queue policy is NOT changed by this evaluation.
+
+Metrics
+Per seed/regime/method: reviewed count, altered/found counts by type, recall of known
+alterations, altered precision among reviewed, unchanged reviewed, common-base
+findings, supplementary findings, and useful known alterations unique to each
+supplement versus the alternatives. Compare ML to next-50-robust and random-50 at
+the same total effort. Also report baseline/common overlaps and original unchanged
+package candidate composition; that original package has no adjudicated labels.
+Report all seeds and regime means/min/max, not a cherry-picked successful run.
+No confidence claim from only three related runs. No real-error precision or recall,
+no time-saved estimate, no population inference, no guarantee of ML superiority.
+
+Reproducibility manifest
+Record input byte SHA-256 hashes, protocol SHA-256, evaluation/workspace source
+SHA-256, package fingerprint per run, parameters, Python/numpy/pandas/scikit-learn
+versions, UTC run time, runtime per package, and unchanged-source verification.
+The output contains aggregate results and hashes, no household IDs or microdata.
+
+Interpretation rule
+Only call ML useful on a given synthetic regime if it finds more known alterations
+than the next 50 robust candidates at equal budget; inspect variation across seeds.
+This remains scenario evidence. If it loses or ties, report that explicitly and
+subject the production-method choice to documented review; do not search for a
+replacement scenario that forces a win.

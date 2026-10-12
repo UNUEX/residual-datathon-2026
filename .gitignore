@@ -3,6 +3,8 @@ __pycache__/
 *.pyc
 .env
 .env.*
+.codex/
+.agents/
 data/
 private_outputs/
 *.tar.gz

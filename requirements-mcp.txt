@@ -1,0 +1,3 @@
+# Optional local bridge; base web application does not require this SDK.
+# Official Python SDK, pinned to the tested FastMCP / ClientSession API.
+mcp==1.30.0

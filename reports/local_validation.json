@@ -1,0 +1,92 @@
+{
+  "date": "2026-10-12",
+  "scope": "Проверка локального MVP для публичного репозитория; не ведомственный пилот и не независимая оценка точности ИИ.",
+  "fresh_install": {
+    "platform": "Windows x64",
+    "same_physical_machine": true,
+    "source_only_copy": true,
+    "preexisting_app_environment_copied": false,
+    "private_workspace_copied": false,
+    "new_venv_created_by_launcher": true,
+    "requirements_installed_by_launcher": true,
+    "pip_cache_reused": true,
+    "existing_local_ollama_and_model_reused": true,
+    "model_download_repeated": false
+  },
+  "first_open": {
+    "name": "fresh_first_screen",
+    "datasets": 0,
+    "reports": 0,
+    "automaticPosts": 0,
+    "automaticExamples": 0,
+    "externalRequests": 0,
+    "mobile390NoOverflow": true
+  },
+  "tests": {
+    "discovered": 131,
+    "passed": 129,
+    "skipped": 2,
+    "failed": 0,
+    "skip_reasons": [
+      "Optional MCP SDK not installed",
+      "Competition archive absent from public source copy"
+    ]
+  },
+  "model": {
+    "name": "real_model_plan",
+    "seconds": 20.107,
+    "model": "qwen3:1.7b",
+    "attempts": 1,
+    "metrics": [
+      "c2"
+    ],
+    "group_by": "c1",
+    "aggregation": "mean",
+    "approvalRequired": true
+  },
+  "public_source_review": {
+    "credentials_patterns_found": false,
+    "personal_absolute_paths_removed": 2,
+    "history_blobs_scanned": 30,
+    "private_outputs_venv_data_ignored": true,
+    "contest_microdata_bundled": false
+  },
+  "workflow": {
+    "model_mocked": false,
+    "mean_values": [
+      518.5,
+      371.571429,
+      466.5
+    ],
+    "source_rows": 24,
+    "rural_valid_values": 7,
+    "rural_missing_values": 1,
+    "synthetic_label_visible": true,
+    "all_five_exports_downloaded": true,
+    "standalone_html_chart_opened": true,
+    "independent_python_matches": true,
+    "reload_does_not_select_dataset_or_report": true,
+    "resume_and_history_work": true,
+    "javascript_errors": 0,
+    "mobile_width_px": 390,
+    "horizontal_overflow": false
+  },
+  "changed_input": {
+    "cell": "C2",
+    "before": 319,
+    "after": 399,
+    "urban_mean_before": 518.5,
+    "urban_mean_after": 528.5,
+    "other_groups_unchanged": true,
+    "original_report_preserved": true,
+    "model_attempts": 1
+  },
+  "calculation_code_sha256": "90a2c03c0e654e5ac585d63d55fb9a15fe3a5f26022a85d39adcbc76592ca263",
+  "limitations": [
+    "Установка выполнена на том же Windows-компьютере в отдельной папке и новой среде; macOS/Linux не проверены.",
+    "Модель уже была установлена; повторная загрузка Ollama и весов в этой проверке не выполнялась.",
+    "Сценарий на учебных данных; качество любых новых вопросов не гарантировано.",
+    "Нужны подтверждение плана человеком и подходящая подготовленная таблица.",
+    "Проверка шаблонов секретов не гарантирует обнаружение всех возможных секретов."
+  ]
+}

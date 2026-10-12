@@ -1,0 +1,975 @@
+{
+  "version": 1,
+  "manifest": {
+    "protocol_version": 1,
+    "started_at_utc": "2026-10-12T09:35:25.739671+00:00",
+    "protocol_sha256": "a6e4d4180aab7038729f712c8a07f21b496543755bdf01b8929ea4aee9d4328a",
+    "source_sha256": {
+      "housing": "a994252b4856d85dae2e164089ef08910cf9da545036faa07e4910e61f2a3f86",
+      "roster": "c392af2521a8d782674329d8994eff48910b9bea49ee2884156200e1796db0e3"
+    },
+    "code_sha256": {
+      "workspace.py": "7dfa0f3e9e893989a56ffc8b0a3d7b3a675c8bec23e625f1822780a71012d49c",
+      "evaluate_workspace.py": "3c152d96cd78457b919d4cee483974997b032474af1c5f5e96dde0ee9e49605b"
+    },
+    "versions": {
+      "python": "3.12.14",
+      "numpy": "2.5.3",
+      "pandas": "3.0.1",
+      "scikit_learn": "1.7.2"
+    },
+    "parameters": {
+      "seeds": [
+        17,
+        29,
+        43
+      ],
+      "base_budget": 250,
+      "total_budget": 300,
+      "alteration_fraction_per_type": 0.01,
+      "scenarios": {
+        "gross": [
+          "living_exceeds_total",
+          "area_unit_x10",
+          "rooms_x8"
+        ],
+        "moderate": [
+          "area_scale_x1_4",
+          "rooms_plus_one",
+          "living_share_shift"
+        ]
+      },
+      "mode": "alter before fit; train and score current full package; no label input to model"
+    },
+    "model_parameters": {
+      "name": "Isolation Forest",
+      "enabled": true,
+      "seed": 17,
+      "n_estimators": 200,
+      "max_samples": 256,
+      "features": [
+        "OB_PL",
+        "J_PL",
+        "KOL_K",
+        "household_size",
+        "area_per_person",
+        "area_per_room",
+        "living_share"
+      ],
+      "training_rows": 11658,
+      "transformation": "log1p",
+      "fit_scope": "Только полные положительные записи без противоречий и сигналов уточнения.",
+      "validation": "Обучение и ранжирование на одном пакете, без меток ошибок. Точность на реальных ошибках этим запуском не измеряется.",
+      "disabled_reason": null,
+      "percentile_note": "Перцентиль балла внутри текущего пакета, не вероятность ошибки."
+    },
+    "source_unchanged_verified": true,
+    "completed_at_utc": "2026-10-12T09:38:37.434055+00:00",
+    "total_runtime_seconds": 191.707
+  },
+  "original_package": {
+    "housing_rows": 11704,
+    "training_rows": 11658,
+    "rule_flags": 46,
+    "validation_flags": 0,
+    "queue_size": 300,
+    "base_queue_size": 250,
+    "statistical_queue": 204,
+    "ml_queue": 50,
+    "input_sha256": "d3e3ec2969073402bb4d2dad90bc6426052a18b5795884080073e5511c3b3e71",
+    "runtime_seconds": 26.486,
+    "label_status": "No adjudicated truth; no error metrics for original rows",
+    "supplemental_overlap_ml_robust": 24
+  },
+  "packages": [
+    {
+      "regime": "gross",
+      "seed": 17,
+      "input_sha256": "375770391da6589437c69196aa73d59c42e6342b77c37ad2a9e7fbaf45a0c4df",
+      "housing_text_sha256": "f3976c31dfd7b36e877342d1db76fc2534e0b93a0c10807489cbed5739ff9887",
+      "training_rows": 11542,
+      "explicit_signals": 162,
+      "runtime_seconds": 25.393,
+      "production_ml_queue_matches_evaluated": true
+    },
+    {
+      "regime": "gross",
+      "seed": 29,
+      "input_sha256": "d653448150316bb9fe67ce96bd9287fc3018ce343ae288d9a83ad32c607d9053",
+      "housing_text_sha256": "57d401fa0bf153d9c54aa1f4ad72e34125750c3b7684a6781cf7546cc4da8acc",
+      "training_rows": 11542,
+      "explicit_signals": 162,
+      "runtime_seconds": 24.074,
+      "production_ml_queue_matches_evaluated": true
+    },
+    {
+      "regime": "gross",
+      "seed": 43,
+      "input_sha256": "8e1ef902081856a61232df5f3effd05725d6f826fac4bf78e018dce5a54d30d2",
+      "housing_text_sha256": "fcdfa2be1f29b31b14ca4ebbba2ce0c9acbea49ba1e75c30b8b4f1b64c68d0f0",
+      "training_rows": 11542,
+      "explicit_signals": 162,
+      "runtime_seconds": 26.09,
+      "production_ml_queue_matches_evaluated": true
+    },
+    {
+      "regime": "moderate",
+      "seed": 17,
+      "input_sha256": "a1ec4c2649b5623387e70d3fe8a15e89b3b993cf95a4d1b22ca2eeaad5df17e9",
+      "housing_text_sha256": "32ffd715334342e85b2201904af9753584caca926729cba374c712125eee6cc6",
+      "training_rows": 11658,
+      "explicit_signals": 46,
+      "runtime_seconds": 26.663,
+      "production_ml_queue_matches_evaluated": true
+    },
+    {
+      "regime": "moderate",
+      "seed": 29,
+      "input_sha256": "817389543f22a6c694aaeb9f6bd79b7d9a835474e1075d4cfc143c36de121620",
+      "housing_text_sha256": "22505837ac9ae56b15411e9575a82f061941e0b507c2973247653ecc573e3733",
+      "training_rows": 11658,
+      "explicit_signals": 46,
+      "runtime_seconds": 26.077,
+      "production_ml_queue_matches_evaluated": true
+    },
+    {
+      "regime": "moderate",
+      "seed": 43,
+      "input_sha256": "9b4219e02e65498ae787de82de496d4e553231e66e7bb1db6b9baced26836caa",
+      "housing_text_sha256": "8aa636f0ed72b38a162526dd19ac3a20c0fb069b77a111f9681711cbab90ea5a",
+      "training_rows": 11658,
+      "explicit_signals": 46,
+      "runtime_seconds": 24.494,
+      "production_ml_queue_matches_evaluated": true
+    }
+  ],
+  "runs": [
+    {
+      "regime": "gross",
+      "seed": 17,
+      "method": "robust_300",
+      "reviewed": 300,
+      "explicit_reviewed": 162,
+      "base_reviewed": 250,
+      "supplemental_reviewed": 50,
+      "altered": 348,
+      "found": 254,
+      "recall": 0.7298850574712644,
+      "alteration_precision": 0.8466666666666667,
+      "unchanged_reviewed": 46,
+      "base_found": 204,
+      "supplemental_found": 50,
+      "by_scenario": {
+        "living_exceeds_total": {
+          "altered": 116,
+          "found": 116
+        },
+        "area_unit_x10": {
+          "altered": 116,
+          "found": 106
+        },
+        "rooms_x8": {
+          "altered": 116,
+          "found": 32
+        }
+      },
+      "unique_supplemental_vs": {
+        "base_250_ml_50": 21,
+        "base_250_random_50": 49
+      },
+      "supplemental_overlap": {
+        "base_250_ml_50": 29,
+        "base_250_random_50": 1
+      }
+    },
+    {
+      "regime": "gross",
+      "seed": 17,
+      "method": "base_250_ml_50",
+      "reviewed": 300,
+      "explicit_reviewed": 162,
+      "base_reviewed": 250,
+      "supplemental_reviewed": 50,
+      "altered": 348,
+      "found": 254,
+      "recall": 0.7298850574712644,
+      "alteration_precision": 0.8466666666666667,
+      "unchanged_reviewed": 46,
+      "base_found": 204,
+      "supplemental_found": 50,
+      "by_scenario": {
+        "living_exceeds_total": {
+          "altered": 116,
+          "found": 116
+        },
+        "area_unit_x10": {
+          "altered": 116,
+          "found": 115
+        },
+        "rooms_x8": {
+          "altered": 116,
+          "found": 23
+        }
+      },
+      "unique_supplemental_vs": {
+        "robust_300": 21,
+        "base_250_random_50": 49
+      },
+      "supplemental_overlap": {
+        "robust_300": 29,
+        "base_250_random_50": 1
+      }
+    },
+    {
+      "regime": "gross",
+      "seed": 17,
+      "method": "base_250_random_50",
+      "reviewed": 300,
+      "explicit_reviewed": 162,
+      "base_reviewed": 250,
+      "supplemental_reviewed": 50,
+      "altered": 348,
+      "found": 207,
+      "recall": 0.5948275862068966,
+      "alteration_precision": 0.69,
+      "unchanged_reviewed": 93,
+      "base_found": 204,
+      "supplemental_found": 3,
+      "by_scenario": {
+        "living_exceeds_total": {
+          "altered": 116,
+          "found": 116
+        },
+        "area_unit_x10": {
+          "altered": 116,
+          "found": 82
+        },
+        "rooms_x8": {
+          "altered": 116,
+          "found": 9
+        }
+      },
+      "unique_supplemental_vs": {
+        "robust_300": 2,
+        "base_250_ml_50": 2
+      },
+      "supplemental_overlap": {
+        "robust_300": 1,
+        "base_250_ml_50": 1
+      }
+    },
+    {
+      "regime": "gross",
+      "seed": 29,
+      "method": "robust_300",
+      "reviewed": 300,
+      "explicit_reviewed": 162,
+      "base_reviewed": 250,
+      "supplemental_reviewed": 50,
+      "altered": 348,
+      "found": 254,
+      "recall": 0.7298850574712644,
+      "alteration_precision": 0.8466666666666667,
+      "unchanged_reviewed": 46,
+      "base_found": 204,
+      "supplemental_found": 50,
+      "by_scenario": {
+        "living_exceeds_total": {
+          "altered": 116,
+          "found": 116
+        },
+        "area_unit_x10": {
+          "altered": 116,
+          "found": 103
+        },
+        "rooms_x8": {
+          "altered": 116,
+          "found": 35
+        }
+      },
+      "unique_supplemental_vs": {
+        "base_250_ml_50": 27,
+        "base_250_random_50": 50
+      },
+      "supplemental_overlap": {
+        "base_250_ml_50": 23,
+        "base_250_random_50": 0
+      }
+    },
+    {
+      "regime": "gross",
+      "seed": 29,
+      "method": "base_250_ml_50",
+      "reviewed": 300,
+      "explicit_reviewed": 162,
+      "base_reviewed": 250,
+      "supplemental_reviewed": 50,
+      "altered": 348,
+      "found": 254,
+      "recall": 0.7298850574712644,
+      "alteration_precision": 0.8466666666666667,
+      "unchanged_reviewed": 46,
+      "base_found": 204,
+      "supplemental_found": 50,
+      "by_scenario": {
+        "living_exceeds_total": {
+          "altered": 116,
+          "found": 116
+        },
+        "area_unit_x10": {
+          "altered": 116,
+          "found": 113
+        },
+        "rooms_x8": {
+          "altered": 116,
+          "found": 25
+        }
+      },
+      "unique_supplemental_vs": {
+        "robust_300": 27,
+        "base_250_random_50": 50
+      },
+      "supplemental_overlap": {
+        "robust_300": 23,
+        "base_250_random_50": 0
+      }
+    },
+    {
+      "regime": "gross",
+      "seed": 29,
+      "method": "base_250_random_50",
+      "reviewed": 300,
+      "explicit_reviewed": 162,
+      "base_reviewed": 250,
+      "supplemental_reviewed": 50,
+      "altered": 348,
+      "found": 204,
+      "recall": 0.5862068965517241,
+      "alteration_precision": 0.68,
+      "unchanged_reviewed": 96,
+      "base_found": 204,
+      "supplemental_found": 0,
+      "by_scenario": {
+        "living_exceeds_total": {
+          "altered": 116,
+          "found": 116
+        },
+        "area_unit_x10": {
+          "altered": 116,
+          "found": 82
+        },
+        "rooms_x8": {
+          "altered": 116,
+          "found": 6
+        }
+      },
+      "unique_supplemental_vs": {
+        "robust_300": 0,
+        "base_250_ml_50": 0
+      },
+      "supplemental_overlap": {
+        "robust_300": 0,
+        "base_250_ml_50": 0
+      }
+    },
+    {
+      "regime": "gross",
+      "seed": 43,
+      "method": "robust_300",
+      "reviewed": 300,
+      "explicit_reviewed": 162,
+      "base_reviewed": 250,
+      "supplemental_reviewed": 50,
+      "altered": 348,
+      "found": 254,
+      "recall": 0.7298850574712644,
+      "alteration_precision": 0.8466666666666667,
+      "unchanged_reviewed": 46,
+      "base_found": 204,
+      "supplemental_found": 50,
+      "by_scenario": {
+        "living_exceeds_total": {
+          "altered": 116,
+          "found": 116
+        },
+        "area_unit_x10": {
+          "altered": 116,
+          "found": 109
+        },
+        "rooms_x8": {
+          "altered": 116,
+          "found": 29
+        }
+      },
+      "unique_supplemental_vs": {
+        "base_250_ml_50": 18,
+        "base_250_random_50": 50
+      },
+      "supplemental_overlap": {
+        "base_250_ml_50": 32,
+        "base_250_random_50": 0
+      }
+    },
+    {
+      "regime": "gross",
+      "seed": 43,
+      "method": "base_250_ml_50",
+      "reviewed": 300,
+      "explicit_reviewed": 162,
+      "base_reviewed": 250,
+      "supplemental_reviewed": 50,
+      "altered": 348,
+      "found": 253,
+      "recall": 0.7270114942528736,
+      "alteration_precision": 0.8433333333333334,
+      "unchanged_reviewed": 47,
+      "base_found": 204,
+      "supplemental_found": 49,
+      "by_scenario": {
+        "living_exceeds_total": {
+          "altered": 116,
+          "found": 116
+        },
+        "area_unit_x10": {
+          "altered": 116,
+          "found": 115
+        },
+        "rooms_x8": {
+          "altered": 116,
+          "found": 22
+        }
+      },
+      "unique_supplemental_vs": {
+        "robust_300": 17,
+        "base_250_random_50": 49
+      },
+      "supplemental_overlap": {
+        "robust_300": 32,
+        "base_250_random_50": 0
+      }
+    },
+    {
+      "regime": "gross",
+      "seed": 43,
+      "method": "base_250_random_50",
+      "reviewed": 300,
+      "explicit_reviewed": 162,
+      "base_reviewed": 250,
+      "supplemental_reviewed": 50,
+      "altered": 348,
+      "found": 204,
+      "recall": 0.5862068965517241,
+      "alteration_precision": 0.68,
+      "unchanged_reviewed": 96,
+      "base_found": 204,
+      "supplemental_found": 0,
+      "by_scenario": {
+        "living_exceeds_total": {
+          "altered": 116,
+          "found": 116
+        },
+        "area_unit_x10": {
+          "altered": 116,
+          "found": 79
+        },
+        "rooms_x8": {
+          "altered": 116,
+          "found": 9
+        }
+      },
+      "unique_supplemental_vs": {
+        "robust_300": 0,
+        "base_250_ml_50": 0
+      },
+      "supplemental_overlap": {
+        "robust_300": 0,
+        "base_250_ml_50": 0
+      }
+    },
+    {
+      "regime": "moderate",
+      "seed": 17,
+      "method": "robust_300",
+      "reviewed": 300,
+      "explicit_reviewed": 46,
+      "base_reviewed": 250,
+      "supplemental_reviewed": 50,
+      "altered": 348,
+      "found": 16,
+      "recall": 0.04597701149425287,
+      "alteration_precision": 0.05333333333333334,
+      "unchanged_reviewed": 284,
+      "base_found": 16,
+      "supplemental_found": 0,
+      "by_scenario": {
+        "area_scale_x1_4": {
+          "altered": 116,
+          "found": 12
+        },
+        "rooms_plus_one": {
+          "altered": 116,
+          "found": 3
+        },
+        "living_share_shift": {
+          "altered": 116,
+          "found": 1
+        }
+      },
+      "unique_supplemental_vs": {
+        "base_250_ml_50": 0,
+        "base_250_random_50": 0
+      },
+      "supplemental_overlap": {
+        "base_250_ml_50": 17,
+        "base_250_random_50": 1
+      }
+    },
+    {
+      "regime": "moderate",
+      "seed": 17,
+      "method": "base_250_ml_50",
+      "reviewed": 300,
+      "explicit_reviewed": 46,
+      "base_reviewed": 250,
+      "supplemental_reviewed": 50,
+      "altered": 348,
+      "found": 17,
+      "recall": 0.04885057471264368,
+      "alteration_precision": 0.056666666666666664,
+      "unchanged_reviewed": 283,
+      "base_found": 16,
+      "supplemental_found": 1,
+      "by_scenario": {
+        "area_scale_x1_4": {
+          "altered": 116,
+          "found": 12
+        },
+        "rooms_plus_one": {
+          "altered": 116,
+          "found": 4
+        },
+        "living_share_shift": {
+          "altered": 116,
+          "found": 1
+        }
+      },
+      "unique_supplemental_vs": {
+        "robust_300": 1,
+        "base_250_random_50": 1
+      },
+      "supplemental_overlap": {
+        "robust_300": 17,
+        "base_250_random_50": 1
+      }
+    },
+    {
+      "regime": "moderate",
+      "seed": 17,
+      "method": "base_250_random_50",
+      "reviewed": 300,
+      "explicit_reviewed": 46,
+      "base_reviewed": 250,
+      "supplemental_reviewed": 50,
+      "altered": 348,
+      "found": 19,
+      "recall": 0.05459770114942529,
+      "alteration_precision": 0.06333333333333334,
+      "unchanged_reviewed": 281,
+      "base_found": 16,
+      "supplemental_found": 3,
+      "by_scenario": {
+        "area_scale_x1_4": {
+          "altered": 116,
+          "found": 14
+        },
+        "rooms_plus_one": {
+          "altered": 116,
+          "found": 3
+        },
+        "living_share_shift": {
+          "altered": 116,
+          "found": 2
+        }
+      },
+      "unique_supplemental_vs": {
+        "robust_300": 3,
+        "base_250_ml_50": 3
+      },
+      "supplemental_overlap": {
+        "robust_300": 1,
+        "base_250_ml_50": 1
+      }
+    },
+    {
+      "regime": "moderate",
+      "seed": 29,
+      "method": "robust_300",
+      "reviewed": 300,
+      "explicit_reviewed": 46,
+      "base_reviewed": 250,
+      "supplemental_reviewed": 50,
+      "altered": 348,
+      "found": 16,
+      "recall": 0.04597701149425287,
+      "alteration_precision": 0.05333333333333334,
+      "unchanged_reviewed": 284,
+      "base_found": 11,
+      "supplemental_found": 5,
+      "by_scenario": {
+        "area_scale_x1_4": {
+          "altered": 116,
+          "found": 9
+        },
+        "rooms_plus_one": {
+          "altered": 116,
+          "found": 5
+        },
+        "living_share_shift": {
+          "altered": 116,
+          "found": 2
+        }
+      },
+      "unique_supplemental_vs": {
+        "base_250_ml_50": 4,
+        "base_250_random_50": 5
+      },
+      "supplemental_overlap": {
+        "base_250_ml_50": 15,
+        "base_250_random_50": 0
+      }
+    },
+    {
+      "regime": "moderate",
+      "seed": 29,
+      "method": "base_250_ml_50",
+      "reviewed": 300,
+      "explicit_reviewed": 46,
+      "base_reviewed": 250,
+      "supplemental_reviewed": 50,
+      "altered": 348,
+      "found": 12,
+      "recall": 0.034482758620689655,
+      "alteration_precision": 0.04,
+      "unchanged_reviewed": 288,
+      "base_found": 11,
+      "supplemental_found": 1,
+      "by_scenario": {
+        "area_scale_x1_4": {
+          "altered": 116,
+          "found": 7
+        },
+        "rooms_plus_one": {
+          "altered": 116,
+          "found": 4
+        },
+        "living_share_shift": {
+          "altered": 116,
+          "found": 1
+        }
+      },
+      "unique_supplemental_vs": {
+        "robust_300": 0,
+        "base_250_random_50": 1
+      },
+      "supplemental_overlap": {
+        "robust_300": 15,
+        "base_250_random_50": 0
+      }
+    },
+    {
+      "regime": "moderate",
+      "seed": 29,
+      "method": "base_250_random_50",
+      "reviewed": 300,
+      "explicit_reviewed": 46,
+      "base_reviewed": 250,
+      "supplemental_reviewed": 50,
+      "altered": 348,
+      "found": 12,
+      "recall": 0.034482758620689655,
+      "alteration_precision": 0.04,
+      "unchanged_reviewed": 288,
+      "base_found": 11,
+      "supplemental_found": 1,
+      "by_scenario": {
+        "area_scale_x1_4": {
+          "altered": 116,
+          "found": 6
+        },
+        "rooms_plus_one": {
+          "altered": 116,
+          "found": 5
+        },
+        "living_share_shift": {
+          "altered": 116,
+          "found": 1
+        }
+      },
+      "unique_supplemental_vs": {
+        "robust_300": 1,
+        "base_250_ml_50": 1
+      },
+      "supplemental_overlap": {
+        "robust_300": 0,
+        "base_250_ml_50": 0
+      }
+    },
+    {
+      "regime": "moderate",
+      "seed": 43,
+      "method": "robust_300",
+      "reviewed": 300,
+      "explicit_reviewed": 46,
+      "base_reviewed": 250,
+      "supplemental_reviewed": 50,
+      "altered": 348,
+      "found": 15,
+      "recall": 0.04310344827586207,
+      "alteration_precision": 0.05,
+      "unchanged_reviewed": 285,
+      "base_found": 9,
+      "supplemental_found": 6,
+      "by_scenario": {
+        "area_scale_x1_4": {
+          "altered": 116,
+          "found": 12
+        },
+        "rooms_plus_one": {
+          "altered": 116,
+          "found": 1
+        },
+        "living_share_shift": {
+          "altered": 116,
+          "found": 2
+        }
+      },
+      "unique_supplemental_vs": {
+        "base_250_ml_50": 6,
+        "base_250_random_50": 6
+      },
+      "supplemental_overlap": {
+        "base_250_ml_50": 12,
+        "base_250_random_50": 0
+      }
+    },
+    {
+      "regime": "moderate",
+      "seed": 43,
+      "method": "base_250_ml_50",
+      "reviewed": 300,
+      "explicit_reviewed": 46,
+      "base_reviewed": 250,
+      "supplemental_reviewed": 50,
+      "altered": 348,
+      "found": 11,
+      "recall": 0.031609195402298854,
+      "alteration_precision": 0.03666666666666667,
+      "unchanged_reviewed": 289,
+      "base_found": 9,
+      "supplemental_found": 2,
+      "by_scenario": {
+        "area_scale_x1_4": {
+          "altered": 116,
+          "found": 10
+        },
+        "rooms_plus_one": {
+          "altered": 116,
+          "found": 1
+        },
+        "living_share_shift": {
+          "altered": 116,
+          "found": 0
+        }
+      },
+      "unique_supplemental_vs": {
+        "robust_300": 2,
+        "base_250_random_50": 2
+      },
+      "supplemental_overlap": {
+        "robust_300": 12,
+        "base_250_random_50": 0
+      }
+    },
+    {
+      "regime": "moderate",
+      "seed": 43,
+      "method": "base_250_random_50",
+      "reviewed": 300,
+      "explicit_reviewed": 46,
+      "base_reviewed": 250,
+      "supplemental_reviewed": 50,
+      "altered": 348,
+      "found": 9,
+      "recall": 0.02586206896551724,
+      "alteration_precision": 0.03,
+      "unchanged_reviewed": 291,
+      "base_found": 9,
+      "supplemental_found": 0,
+      "by_scenario": {
+        "area_scale_x1_4": {
+          "altered": 116,
+          "found": 8
+        },
+        "rooms_plus_one": {
+          "altered": 116,
+          "found": 1
+        },
+        "living_share_shift": {
+          "altered": 116,
+          "found": 0
+        }
+      },
+      "unique_supplemental_vs": {
+        "robust_300": 0,
+        "base_250_ml_50": 0
+      },
+      "supplemental_overlap": {
+        "robust_300": 0,
+        "base_250_ml_50": 0
+      }
+    }
+  ],
+  "marginal_comparisons": [
+    {
+      "regime": "gross",
+      "seed": 17,
+      "base_found": 204,
+      "ml_found": 50,
+      "next_robust_found": 50,
+      "random_found": 3,
+      "ml_minus_next_robust": 0,
+      "ml_minus_random": 47
+    },
+    {
+      "regime": "gross",
+      "seed": 29,
+      "base_found": 204,
+      "ml_found": 50,
+      "next_robust_found": 50,
+      "random_found": 0,
+      "ml_minus_next_robust": 0,
+      "ml_minus_random": 50
+    },
+    {
+      "regime": "gross",
+      "seed": 43,
+      "base_found": 204,
+      "ml_found": 49,
+      "next_robust_found": 50,
+      "random_found": 0,
+      "ml_minus_next_robust": -1,
+      "ml_minus_random": 49
+    },
+    {
+      "regime": "moderate",
+      "seed": 17,
+      "base_found": 16,
+      "ml_found": 1,
+      "next_robust_found": 0,
+      "random_found": 3,
+      "ml_minus_next_robust": 1,
+      "ml_minus_random": -2
+    },
+    {
+      "regime": "moderate",
+      "seed": 29,
+      "base_found": 11,
+      "ml_found": 1,
+      "next_robust_found": 5,
+      "random_found": 1,
+      "ml_minus_next_robust": -4,
+      "ml_minus_random": 0
+    },
+    {
+      "regime": "moderate",
+      "seed": 43,
+      "base_found": 9,
+      "ml_found": 2,
+      "next_robust_found": 6,
+      "random_found": 0,
+      "ml_minus_next_robust": -4,
+      "ml_minus_random": 2
+    }
+  ],
+  "summary": [
+    {
+      "regime": "gross",
+      "method": "robust_300",
+      "runs": 3,
+      "found_mean": 254.0,
+      "recall_mean": 0.7298850574712644,
+      "recall_min": 0.7298850574712644,
+      "recall_max": 0.7298850574712644,
+      "alteration_precision_mean": 0.8466666666666667,
+      "supplemental_found_mean": 50.0,
+      "unchanged_reviewed_mean": 46.0
+    },
+    {
+      "regime": "gross",
+      "method": "base_250_ml_50",
+      "runs": 3,
+      "found_mean": 253.66666666666666,
+      "recall_mean": 0.7289272030651341,
+      "recall_min": 0.7270114942528736,
+      "recall_max": 0.7298850574712644,
+      "alteration_precision_mean": 0.8455555555555555,
+      "supplemental_found_mean": 49.666666666666664,
+      "unchanged_reviewed_mean": 46.333333333333336
+    },
+    {
+      "regime": "gross",
+      "method": "base_250_random_50",
+      "runs": 3,
+      "found_mean": 205.0,
+      "recall_mean": 0.5890804597701149,
+      "recall_min": 0.5862068965517241,
+      "recall_max": 0.5948275862068966,
+      "alteration_precision_mean": 0.6833333333333335,
+      "supplemental_found_mean": 1.0,
+      "unchanged_reviewed_mean": 95.0
+    },
+    {
+      "regime": "moderate",
+      "method": "robust_300",
+      "runs": 3,
+      "found_mean": 15.666666666666666,
+      "recall_mean": 0.045019157088122604,
+      "recall_min": 0.04310344827586207,
+      "recall_max": 0.04597701149425287,
+      "alteration_precision_mean": 0.052222222222222225,
+      "supplemental_found_mean": 3.6666666666666665,
+      "unchanged_reviewed_mean": 284.3333333333333
+    },
+    {
+      "regime": "moderate",
+      "method": "base_250_ml_50",
+      "runs": 3,
+      "found_mean": 13.333333333333334,
+      "recall_mean": 0.03831417624521073,
+      "recall_min": 0.031609195402298854,
+      "recall_max": 0.04885057471264368,
+      "alteration_precision_mean": 0.044444444444444446,
+      "supplemental_found_mean": 1.3333333333333333,
+      "unchanged_reviewed_mean": 286.6666666666667
+    },
+    {
+      "regime": "moderate",
+      "method": "base_250_random_50",
+      "runs": 3,
+      "found_mean": 13.333333333333334,
+      "recall_mean": 0.038314176245210725,
+      "recall_min": 0.02586206896551724,
+      "recall_max": 0.05459770114942529,
+      "alteration_precision_mean": 0.044444444444444446,
+      "supplemental_found_mean": 1.3333333333333333,
+      "unchanged_reviewed_mean": 286.6666666666667
+    }
+  ],
+  "caveats": [
+    "Known artificial alterations, not adjudicated real errors; unchanged controls may contain errors.",
+    "Moderate alterations may remain valid records. Detection is not proof an answer is wrong.",
+    "Scenarios fixed before results without expert approval; three seeds are not independent real deployments.",
+    "No real-error accuracy, time-saving, or population inference is measured.",
+    "Production policy unchanged; this evaluation does not automatically choose the ML method."
+  ]
+}

@@ -1,0 +1,108 @@
+{
+  "stage": "calculation_example",
+  "ai_planner_connected": false,
+  "year": 2024,
+  "analysis_unit": "household",
+  "weighted": false,
+  "synthetic_data": true,
+  "question": "Как различается площадь жилья в домохозяйствах разного размера?",
+  "coverage": {
+    "housing_households": 11704,
+    "roster_households": 12000,
+    "roster_only_households": 296,
+    "area_order_flagged_households": 46
+  },
+  "primary": [
+    {
+      "household_size_group": "1–2",
+      "households": 4435,
+      "persons": 7215,
+      "median_total_area_m2": 59.0,
+      "median_area_per_person_m2": 37.0,
+      "q25_area_per_person_m2": 27.0,
+      "q75_area_per_person_m2": 54.0
+    },
+    {
+      "household_size_group": "3–4",
+      "households": 3973,
+      "persons": 13749,
+      "median_total_area_m2": 63.0,
+      "median_area_per_person_m2": 18.666666666666668,
+      "q25_area_per_person_m2": 14.666666666666666,
+      "q75_area_per_person_m2": 24.666666666666668
+    },
+    {
+      "household_size_group": "5+",
+      "households": 3296,
+      "persons": 19941,
+      "median_total_area_m2": 73.0,
+      "median_area_per_person_m2": 12.625,
+      "q25_area_per_person_m2": 9.666666666666666,
+      "q75_area_per_person_m2": 17.142857142857142
+    }
+  ],
+  "sensitivity": [
+    {
+      "household_size_group": "1–2",
+      "households": 4427,
+      "persons": 7205,
+      "median_total_area_m2": 59.0,
+      "median_area_per_person_m2": 37.0,
+      "q25_area_per_person_m2": 27.0,
+      "q75_area_per_person_m2": 54.0
+    },
+    {
+      "household_size_group": "3–4",
+      "households": 3962,
+      "persons": 13712,
+      "median_total_area_m2": 63.0,
+      "median_area_per_person_m2": 18.666666666666668,
+      "q25_area_per_person_m2": 14.666666666666666,
+      "q75_area_per_person_m2": 24.666666666666668
+    },
+    {
+      "household_size_group": "5+",
+      "households": 3269,
+      "persons": 19765,
+      "median_total_area_m2": 73.0,
+      "median_area_per_person_m2": 12.666666666666666,
+      "q25_area_per_person_m2": 9.8,
+      "q75_area_per_person_m2": 17.142857142857142
+    }
+  ],
+  "method": {
+    "join": "D006.NOMER to counts of distinct D008.(NOMER, NOMP), within 2024",
+    "household_size": "Number of D008 rows per NOMER, checked against KOL_CHL",
+    "total_area": "D006.OB_PL, square metres",
+    "area_per_person": "Compute OB_PL / household_size for each household, then take group median",
+    "group_edges": "1–2, 3–4, 5 or more persons",
+    "quartiles": "Linear interpolation, statistics.quantiles(method='inclusive')",
+    "primary_policy": "Keep all linked households with validated positive areas and roster counts; retain area-order flags",
+    "sensitivity_policy": "Separately exclude J_PL > OB_PL; do not change original records",
+    "estimate_weight": "Each household has equal weight; this is not a person-weighted estimate"
+  },
+  "limitations": [
+    "Синтетический конкурсный массив: результаты не являются оценками населения Казахстана.",
+    "Невзвешенные описательные показатели; причинные выводы и перенос на население не обоснованы.",
+    "Площадь на человека математически зависит от размера домохозяйства; сравнение не доказывает причинную связь.",
+    "Медиана индивидуально рассчитанных отношений не равна отношению медиан.",
+    "J_PL > OB_PL — диагностическое противоречие, не подтверждение того, какое значение ошибочно.",
+    "Домохозяйства только из D008 не входят в анализ жилья; это ограничение охвата, не установленная ошибка.",
+    "ИИ-планировщик не подключён; это воспроизводимый пример расчётного ядра."
+  ],
+  "inputs": {
+    "D006": {
+      "path": "d006/2024/rio_2024.csv",
+      "sha256": "a994252b4856d85dae2e164089ef08910cf9da545036faa07e4910e61f2a3f86"
+    },
+    "D008": {
+      "path": "d008/2024/kontr_k.csv",
+      "sha256": "c392af2521a8d782674329d8994eff48910b9bea49ee2884156200e1796db0e3"
+    }
+  },
+  "reproduction": {
+    "script": "reproduce.py",
+    "dependencies": "Python standard library only",
+    "script_sha256": "13c73712fde0fe71528d32fbc92fc9ac4f82ad5c36c63cde4dee044d48df6ebd"
+  }
+}
