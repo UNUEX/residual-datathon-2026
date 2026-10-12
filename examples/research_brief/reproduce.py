@@ -137,7 +137,7 @@ def calculate(housing, roster):
             "Медиана индивидуально рассчитанных отношений не равна отношению медиан.",
             "J_PL > OB_PL — диагностическое противоречие, не подтверждение того, какое значение ошибочно.",
             "Домохозяйства только из D008 не входят в анализ жилья; это ограничение охвата, не установленная ошибка.",
-            "ИИ-планировщик не подключён; это воспроизводимый пример расчётного ядра.",
+            "Этот отдельный пример воспроизводится фиксированным Python-скриптом без обращения к модели.",
         ])
 
 
@@ -158,7 +158,7 @@ def main():
              "D008": args.data_dir / "d008/2024/kontr_k.csv"}
     result = calculate(load_rows(paths["D006"], ["NOMER", "OB_PL", "J_PL"]),
         load_rows(paths["D008"], ["NOMER", "NOMP", "KOL_CHL"]))
-    result["inputs"] = {form: dict(path=str(path.resolve()),
+    result["inputs"] = {form: dict(path=path.relative_to(args.data_dir).as_posix(),
         sha256=hashlib.sha256(path.read_bytes()).hexdigest()) for form, path in paths.items()}
     result["reproduction"] = dict(script="reproduce.py", dependencies="Python standard library only",
         script_sha256=hashlib.sha256(Path(__file__).read_bytes()).hexdigest())

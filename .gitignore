@@ -12,4 +12,7 @@ private_outputs/
 .DS_Store
 presentation/
 *.pptx
+*.pdf
+*.ppt
+submission/
 
