@@ -21,8 +21,11 @@ AGGREGATIONS = {"mean", "median", "sum"}
 PLAN_KEYS = {"status", "reason", "metrics", "aggregation", "group_by"}
 
 
-def is_missing(value: str) -> bool:
-    return value is None or isinstance(value, str) and value.strip().casefold() in MISSING
+def is_missing(value: str, declared: list[str] | None = None) -> bool:
+    """Declared codes match text exactly after trimming and case folding."""
+    return value is None or isinstance(value, str) and (
+        value.strip().casefold() in MISSING
+        or value.strip().casefold() in {code.strip().casefold() for code in (declared or [])})
 
 
 def parse_number(value: str, decimal_separator: str) -> float | None:
@@ -91,6 +94,11 @@ def validate_columns(profiles: list[dict], payloadcolumns: list[dict]) -> list[d
         column = by_id[profile["id"]]
         role, label, unit = column.get("role"), column.get("label"), column.get("unit", "")
         separator = column.get("decimal_separator", ".")
+        missing_values = column.get("missing_values", [])
+        if not isinstance(missing_values, list) or len(missing_values) > 20 or any(
+                not isinstance(code, str) or not code.strip() or len(code.strip()) > 80 for code in missing_values):
+            raise CalculationError("Коды пропусков: до 20 непустых текстовых значений, каждое до 80 знаков.")
+        missing_values = list(dict.fromkeys(code.strip().casefold() for code in missing_values))
         if not isinstance(role, str) or role not in ROLES or not isinstance(label, str) or not isinstance(unit, str):
             raise CalculationError("У каждого столбца нужны название, роль и текстовая единица измерения.")
         label, unit = label.strip(), unit.strip()
@@ -102,7 +110,7 @@ def validate_columns(profiles: list[dict], payloadcolumns: list[dict]) -> list[d
                 raise CalculationError("Названия используемых столбцов должны различаться.")
             labels.add(normalized)
         result.append({"id": profile["id"], "source_name": profile["source_name"], "label": label,
-            "role": role, "unit": unit, "decimal_separator": separator})
+            "role": role, "unit": unit, "decimal_separator": separator, "missing_values": missing_values})
     if len(labels) > 15 or not any(column["role"] == "number" for column in result):
         raise CalculationError("Нужно от 1 до 15 используемых столбцов, включая хотя бы один числовой.")
     return result
@@ -210,6 +218,8 @@ def question_guard(question: str, plan: dict, dataset: dict) -> dict:
         return stop("clarify", "За один расчёт выберите одну операцию: среднее, медиану или сумму.")
     if checked["status"] != "ready":
         return checked
+    if not aggregations:
+        return stop("clarify", "Уточните операцию: среднее, медиану или сумму. Программа не выбирает её вместо специалиста.")
     if aggregations:
         requested = next(iter(aggregations))
         if checked["aggregation"] != requested:
@@ -282,7 +292,7 @@ def calculate(rows: list[list[str]], columns: list[dict], plan: dict) -> dict:
         groups[None] = {"rows": 0, "numbers": {key: [] for key in metrics}, "missing": {key: 0 for key in metrics}}
     for row in rows:
         group = None if group_id is None else row[indices[group_id]]
-        if group_id is not None and is_missing(group):
+        if group_id is not None and is_missing(group, by_id[group_id].get("missing_values")):
             quality["grouping_missing_rows"] += 1
             continue
         if group_id is not None:
@@ -297,7 +307,7 @@ def calculate(rows: list[list[str]], columns: list[dict], plan: dict) -> dict:
         bucket["rows"] += 1
         for key in metrics:
             value = row[indices[key]]
-            if is_missing(value):
+            if is_missing(value, by_id[key].get("missing_values")):
                 bucket["missing"][key] += 1
                 continue
             number = parse_number(value, by_id[key]["decimal_separator"])
@@ -344,12 +354,16 @@ def calculate(rows: list[list[str]], columns: list[dict], plan: dict) -> dict:
     return {"table": table, "quality": quality,
         "summary": _result_summary(table, metrics, by_id, descriptions[checked['aggregation']], len(rows)),
         "methodology": f"{descriptions[checked['aggregation']]} по доступным значениям каждого столбца отдельно, без весов. "
-            "Пустые и нечисловые значения не участвуют; ноль и отрицательные числа участвуют. "
+            "Пустые, объявленные коды пропусков и нечисловые значения не участвуют. "
+            "Ноль и отрицательные числа участвуют, если явно не объявлены кодами пропусков. "
             "Строки без категории группировки исключаются; счётчик нечисловых значений относится к оставшимся строкам. "
             "Результаты округлены до 6 знаков после запятой.",
         "limitations": ["Это описание загруженных строк, а не оценка генеральной совокупности и не причинный вывод.",
             "У разных показателей может быть разное число пригодных значений; сравнивайте valid_counts.",
             "Пропуски и некорректные числа показаны отдельно; исключение не заменяет проверку качества данных.",
-            "Группы могут быть малы; контроль раскрытия информации не реализован."],
+            "Группы могут быть малы; контроль раскрытия информации не реализован."]
+            + [f"Коды пропусков «{by_id[key]['label']}»: " + "; ".join(by_id[key]["missing_values"])
+               + ". Совпадение текстовое, без учёта регистра и пробелов по краям."
+               for key in [*metrics, *([group_id] if group_id else [])] if by_id[key].get("missing_values")],
         "formulas": {key: {"label": by_id[key]["label"], "unit": by_id[key]["unit"],
             "formula": formula_text[checked["aggregation"]]} for key in metrics}}

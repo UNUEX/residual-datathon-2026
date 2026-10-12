@@ -1,0 +1,204 @@
+{
+  "table": [
+    {
+      "group": "1–2 человека",
+      "rows": 4427,
+      "values": {
+        "c4": 37
+      },
+      "valid_counts": {
+        "c4": 4427
+      },
+      "missing_counts": {
+        "c4": 0
+      }
+    },
+    {
+      "group": "3–4 человека",
+      "rows": 3962,
+      "values": {
+        "c4": 18.666667
+      },
+      "valid_counts": {
+        "c4": 3962
+      },
+      "missing_counts": {
+        "c4": 0
+      }
+    },
+    {
+      "group": "5+ человек",
+      "rows": 3269,
+      "values": {
+        "c4": 12.666667
+      },
+      "valid_counts": {
+        "c4": 3269
+      },
+      "missing_counts": {
+        "c4": 0
+      }
+    }
+  ],
+  "quality": {
+    "total_rows": 11658,
+    "grouping_missing_rows": 0,
+    "invalid_numeric": {
+      "c4": 0
+    }
+  },
+  "summary": [
+    "Медиана «Площадь на человека»: 1–2 человека — 37 м²/чел. (4427 из 4427 строк); 3–4 человека — 18,666667 м²/чел. (3962 из 3962 строк); 5+ человек — 12,666667 м²/чел. (3269 из 3269 строк).",
+    "Исходных строк: 11658. Строк в расчёте: 11658."
+  ],
+  "methodology": "Медиана по доступным значениям каждого столбца отдельно, без весов. Пустые, объявленные коды пропусков и нечисловые значения не участвуют. Ноль и отрицательные числа участвуют, если явно не объявлены кодами пропусков. Строки без категории группировки исключаются; счётчик нечисловых значений относится к оставшимся строкам. Результаты округлены до 6 знаков после запятой.",
+  "limitations": [
+    "Пользователь указал синтетическое или учебное происхождение данных. Результаты описывают этот набор и не являются оценками населения.",
+    "Это описание загруженных строк, а не оценка генеральной совокупности и не причинный вывод.",
+    "У разных показателей может быть разное число пригодных значений; сравнивайте valid_counts.",
+    "Пропуски и некорректные числа показаны отдельно; исключение не заменяет проверку качества данных.",
+    "Группы могут быть малы; контроль раскрытия информации не реализован."
+  ],
+  "formulas": {
+    "c4": {
+      "label": "Площадь на человека",
+      "unit": "м²/чел.",
+      "formula": "middle sorted valid value; for even count, mean of the two middle values"
+    }
+  },
+  "id": "11e1d05c27934e1aa222b8a167a159db",
+  "created_at": "2026-10-12T15:23:12.395455+00:00",
+  "dataset_id": "5715e0956045447aa9a989802e84e42c",
+  "question": "Сравни медиану «Площадь на человека» по «Размер домохозяйства» за 2024 год.",
+  "plan": {
+    "aggregation": "median",
+    "calculation_code_sha256": "d5cb308af4322b2de4fc0260c2d3c3af02aaf8403933144b47f050c04557a0c0",
+    "created_at": "2026-10-12T15:23:11.364200+00:00",
+    "data_sent_to_model": [
+      "question",
+      "confirmed_metadata",
+      "operation_catalog"
+    ],
+    "dataset_fingerprint": "a48b4bf4e9e15622ec42b7b8bfe267cb9d001f23c1059965baaa2a0f5475c165",
+    "dataset_id": "5715e0956045447aa9a989802e84e42c",
+    "group_by": "c0",
+    "group_label": "Размер домохозяйства",
+    "id": "be8fd695b5ba4a2a93dde939e2e35428",
+    "metric_details": [
+      {
+        "id": "c4",
+        "label": "Площадь на человека",
+        "unit": "м²/чел."
+      }
+    ],
+    "metrics": [
+      "c4"
+    ],
+    "model": "qwen3:1.7b",
+    "model_attempts": 1,
+    "model_endpoint": "http://127.0.0.1:11434",
+    "observation_unit": "домохозяйство",
+    "period": "2024",
+    "provider": "ollama",
+    "question": "Сравни медиану «Площадь на человека» по «Размер домохозяйства» за 2024 год.",
+    "reason": "Запрос подтверждённых метаданных и не требует фильтрации",
+    "requires_confirmation": true,
+    "status": "ready",
+    "validation_feedback": []
+  },
+  "dataset": {
+    "columns": [
+      {
+        "decimal_separator": ".",
+        "id": "c0",
+        "invalid_count": 0,
+        "label": "Размер домохозяйства",
+        "missing_count": 0,
+        "missing_values": [],
+        "role": "category",
+        "source_name": "Размер домохозяйства",
+        "unique_count": 3,
+        "unit": ""
+      },
+      {
+        "decimal_separator": ".",
+        "id": "c1",
+        "invalid_count": 0,
+        "label": "Членов домохозяйства",
+        "missing_count": 0,
+        "missing_values": [],
+        "role": "number",
+        "source_name": "Членов домохозяйства",
+        "unique_count": 12,
+        "unit": "чел."
+      },
+      {
+        "decimal_separator": ".",
+        "id": "c2",
+        "invalid_count": 0,
+        "label": "Общая площадь",
+        "missing_count": 0,
+        "missing_values": [],
+        "role": "number",
+        "source_name": "Общая площадь",
+        "unique_count": 214,
+        "unit": "м²"
+      },
+      {
+        "decimal_separator": ".",
+        "id": "c3",
+        "invalid_count": 0,
+        "label": "Жилая площадь",
+        "missing_count": 0,
+        "missing_values": [],
+        "role": "number",
+        "source_name": "Жилая площадь",
+        "unique_count": 172,
+        "unit": "м²"
+      },
+      {
+        "decimal_separator": ".",
+        "id": "c4",
+        "invalid_count": 0,
+        "label": "Площадь на человека",
+        "missing_count": 0,
+        "missing_values": [],
+        "role": "number",
+        "source_name": "Площадь на человека",
+        "unique_count": 791,
+        "unit": "м²/чел."
+      }
+    ],
+    "created_at": "2026-10-12T15:22:53.233163+00:00",
+    "declared_synthetic": true,
+    "fingerprint": "a48b4bf4e9e15622ec42b7b8bfe267cb9d001f23c1059965baaa2a0f5475c165",
+    "id": "5715e0956045447aa9a989802e84e42c",
+    "label": "Синтетические конкурсные данные D006 + D008, 2024",
+    "observation_unit": "домохозяйство",
+    "period": "2024",
+    "row_count": 11658,
+    "source": {
+      "filename": "competition_2024.csv",
+      "format": "csv",
+      "header_row": 1,
+      "import_id": "dca534bc9d114f50b8bc2cf27521da2f",
+      "sha256": "8023248d88152095e29773d72632cf02c936cea549c90d1dfda6b7f1a6aacd31",
+      "table": "competition_2024.csv",
+      "table_id": "csv:0"
+    },
+    "source_csv_sha256": "bf17c10899166d2b23d09c8431becbfce91f9d0d9ba99ce1e632b7bc5a64f454",
+    "synthetic_data": true,
+    "warnings": []
+  },
+  "sources": [
+    {
+      "filename": "competition_2024.csv",
+      "table": "competition_2024.csv",
+      "sha256": "8023248d88152095e29773d72632cf02c936cea549c90d1dfda6b7f1a6aacd31",
+      "header_row": 1
+    }
+  ],
+  "calculation_code_sha256": "d5cb308af4322b2de4fc0260c2d3c3af02aaf8403933144b47f050c04557a0c0",
+  "calculation_version": "tables-1.0",
+  "model_used_for": "plan_only"
+}

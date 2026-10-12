@@ -176,7 +176,7 @@ class TableCalculationTests(unittest.TestCase):
         self.assertEqual(result["status"], "ready")
         self.assertEqual(question_guard("Средний Доход и Площадь", plan, self.dataset)["status"], "clarify")
         self.assertEqual(question_guard('Среднее поле "Выручка"', plan, self.dataset)["status"], "clarify")
-        self.assertEqual(question_guard("Посчитай типичный размер выплаты", plan, self.dataset)["status"], "ready")
+        self.assertEqual(question_guard("Посчитай типичный размер выплаты", plan, self.dataset)["status"], "clarify")
         self.assertEqual(question_guard("Только средний Доход", plan, self.dataset)["status"], "ready")
 
     def test_overlapping_labels_do_not_invent_additional_requested_metrics(self):

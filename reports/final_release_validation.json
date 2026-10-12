@@ -1,0 +1,106 @@
+{
+  "checked_at_utc": "2026-10-12T15:27:45.745894+00:00",
+  "scope": "Final local Windows MVP. Real model and browser; internal verification, not a Bureau pilot.",
+  "tests": {
+    "discovered": 145,
+    "passed": 144,
+    "skipped": 1,
+    "skip_reason": "Optional MCP SDK unavailable in base environment"
+  },
+  "browser": {
+    "ok": true,
+    "model": "qwen3:1.7b",
+    "contest_rows": 11658,
+    "groups": [
+      {
+        "group": "1–2 человека",
+        "rows": 4427,
+        "values": {
+          "c4": 37
+        },
+        "valid_counts": {
+          "c4": 4427
+        },
+        "missing_counts": {
+          "c4": 0
+        }
+      },
+      {
+        "group": "3–4 человека",
+        "rows": 3962,
+        "values": {
+          "c4": 18.666667
+        },
+        "valid_counts": {
+          "c4": 3962
+        },
+        "missing_counts": {
+          "c4": 0
+        }
+      },
+      {
+        "group": "5+ человек",
+        "rows": 3269,
+        "values": {
+          "c4": 12.666667
+        },
+        "valid_counts": {
+          "c4": 3269
+        },
+        "missing_counts": {
+          "c4": 0
+        }
+      }
+    ],
+    "synthetic_badge": true,
+    "downloads": 5,
+    "responsive_widths": [
+      390,
+      768,
+      1440
+    ],
+    "missing_codes_ui_persistence": true,
+    "console_errors": []
+  },
+  "contest": {
+    "synthetic_data": true,
+    "population_inference": false,
+    "prepared_rows": 11658,
+    "excluded_before_import": 46,
+    "preparation_evidence": "competition_preparation_audit.json",
+    "independent_verification": "competition_independent_verification.json",
+    "main_application_report": "competition_main_report.json",
+    "standalone_python_matches_table_quality_summary_methodology_formulas": true,
+    "source_rows_not_published": true,
+    "model_used_for": "plan_only"
+  },
+  "planning": {
+    "baseline": {
+      "report": "final_acceptance.json",
+      "passed": 9,
+      "total": 12
+    },
+    "regression": {
+      "report": "final_acceptance_regression.json",
+      "passed": 10,
+      "total": 12
+    },
+    "supported_questions_successful": "6/8",
+    "remaining_failures": "Two plans add a nonrequested metric; the application asks for clarification and does not execute.",
+    "interpretation": "An open internal suite replay after a guard fix; not independent model accuracy."
+  },
+  "limitations": [
+    "No Bureau employee pilot or measured employee time saving.",
+    "No weights, confidence intervals, automated joins, row filters or disclosure control in main table MVP.",
+    "Contest preparation is a documented separate domain script before import.",
+    "Clean installation was checked earlier on this same Windows machine; macOS/Linux not independently checked."
+  ],
+  "source_hashes": {
+    "src/table_calculation.py": "d5cb308af4322b2de4fc0260c2d3c3af02aaf8403933144b47f050c04557a0c0",
+    "src/tabular.py": "b88b38087d0fd05d89ef776226efb61acda7d0df2576cfb7389ba3f5d73bfecd",
+    "src/model_provider.py": "d39db3b49263e8333de85ad898c0332e831f7b92ec69084d79d9b06bb5f36640",
+    "src/prepare_competition.py": "45ff4cdd148cb9a42be52dc7ab04b2c4eabf0183bdb5b01ac4d4380ee419f807",
+    "app/tables.js": "fdd49ca62cc33d4591480dcada75d35677631d8956fc0fd0612d18a9067b7ab9",
+    "app/workspace.css": "ebc6645b756970a9610af533bd2376883d0fd15704cec195562aa83d6bfc1d52"
+  }
+}

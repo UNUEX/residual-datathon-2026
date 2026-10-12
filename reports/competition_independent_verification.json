@@ -1,0 +1,35 @@
+{
+  "independent_calculation": "pandas from original D006/D008; no src.prepare_competition import",
+  "all_prepared_rows_match": true,
+  "rows_compared": 11658,
+  "absolute_relative_tolerance": 1e-12,
+  "prepared_sha256_matches": true,
+  "reference_aggregates": [
+    {
+      "group": "1–2 человека",
+      "households": 4427,
+      "median_area_per_person_m2": 37.0,
+      "median_total_area_m2": 59.0
+    },
+    {
+      "group": "3–4 человека",
+      "households": 3962,
+      "median_area_per_person_m2": 18.666667,
+      "median_total_area_m2": 63.0
+    },
+    {
+      "group": "5+ человек",
+      "households": 3269,
+      "median_area_per_person_m2": 12.666667,
+      "median_total_area_m2": 73.0
+    }
+  ],
+  "housing_rows": 11704,
+  "roster_rows": 41821,
+  "exclusions": {
+    "living_area_exceeds_total": 46,
+    "other": 0
+  },
+  "synthetic_data": true,
+  "population_inference": false
+}

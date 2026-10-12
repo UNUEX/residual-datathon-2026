@@ -1,0 +1,916 @@
+{
+  "suite": "tables-final-acceptance-2026-10-12",
+  "purpose": "Открытая внутренняя приёмочная проверка процесса планирования и расчёта на новой авторской синтетической таблице. Не независимая оценка точности модели, не пользовательский пилот и не официальные статистические данные.",
+  "protocol": "12 вопросов и ожидаемых решений зафиксированы до запуска модели. Один проход, без переформулировок вопросов и настройки промпта по результатам. Обычная внутренняя повторная попытка приложения при ошибке валидации разрешена и учитывается отдельно. Отказы и уточнения проверяются на уровне приложения, отдельно от сырого ответа модели.",
+  "suite_frozen_at_utc": "2026-10-12T15:06:18Z",
+  "started_at_utc": "2026-10-12T15:09:35.716123+00:00",
+  "suite_sha256": "b08c5f7d3b4b60c0e7cf9234e69116696038e3661774a9bd8fca46882cb3771d",
+  "source_sha256": "f88456bdbb6581aa18dcb98a0e01c6d9b8117a01bb894d9267ca8929a444b17f",
+  "calculation_code_sha256": "076c20c4681d9f0a93326216548cd5aea2cc224b3af710de73485a90e9f1688e",
+  "planner_source_sha256": "6df1d3cd22a41ee822664b353c37d5287f0f5340e9f4c0216988e04ed9a3d41b",
+  "provider_source_sha256": "d39db3b49263e8333de85ad898c0332e831f7b92ec69084d79d9b06bb5f36640",
+  "model": {
+    "provider": "ollama",
+    "base_url": "http://127.0.0.1:11434",
+    "model": "qwen3:1.7b",
+    "allow_external": false,
+    "is_local": true,
+    "api_key_set": false,
+    "data_policy": "Модели передаются только ваш вопрос и описание допустимых операций. Строки таблиц и результаты расчёта не отправляются. Сам вопрос может содержать чувствительные сведения.",
+    "automatic_fallback": false
+  },
+  "mocked": false,
+  "synthetic_data": true,
+  "execution": "Sequential direct calls to the actual application service and local model; not a browser test.",
+  "reference": "Independent Decimal arithmetic over the original authored CSV; values, group sizes, valid counts and missing counts checked.",
+  "limitations": [
+    "12 open internally authored cases; not model accuracy on arbitrary questions.",
+    "No independent statistician or organisational pilot; no measured employee time savings.",
+    "Unsupported-method acceptance includes deterministic application guards and is not evidence of model-only refusal reliability.",
+    "The evaluation explicitly confirms successful plans to test calculation; normal users must review their plans."
+  ],
+  "cases": [
+    {
+      "id": "01",
+      "kind": "supported",
+      "question": "Рассчитай среднее «Посещения» по всей таблице за 2025 год, без группировки.",
+      "expected": {
+        "status": "ready",
+        "metrics": [
+          "c3"
+        ],
+        "aggregation": "mean",
+        "group_by": null
+      },
+      "model_outputs": [
+        {
+          "status": "ready",
+          "reason": "Доступны числовые поля и необходима операция среднего значения.",
+          "metrics": [
+            "c3"
+          ],
+          "aggregation": "mean",
+          "group_by": "none"
+        }
+      ],
+      "actual": {
+        "status": "ready",
+        "reason": "Доступны числовые поля и необходима операция среднего значения.",
+        "metrics": [
+          "c3"
+        ],
+        "aggregation": "mean",
+        "group_by": null
+      },
+      "model_attempts": 1,
+      "validation_feedback": [],
+      "plan_matches_expected": true,
+      "calculation_executed": true,
+      "expected_table": [
+        {
+          "group": null,
+          "rows": 8,
+          "values": {
+            "c3": 18.857143
+          },
+          "valid_counts": {
+            "c3": 7
+          },
+          "missing_counts": {
+            "c3": 1
+          }
+        }
+      ],
+      "numbers_independently_verified": true,
+      "actual_table": [
+        {
+          "group": null,
+          "rows": 8,
+          "values": {
+            "c3": 18.857143
+          },
+          "valid_counts": {
+            "c3": 7
+          },
+          "missing_counts": {
+            "c3": 1
+          }
+        }
+      ],
+      "passed": true,
+      "seconds": 17.641
+    },
+    {
+      "id": "02",
+      "kind": "supported",
+      "question": "Нужна медиана «Часы работы» по всей таблице, без группировки.",
+      "expected": {
+        "status": "ready",
+        "metrics": [
+          "c4"
+        ],
+        "aggregation": "median",
+        "group_by": null
+      },
+      "model_outputs": [
+        {
+          "status": "ready",
+          "reason": "Доступны числовые поля, разрешённая операция и допустимая группировка.",
+          "metrics": [
+            "c3",
+            "c4"
+          ],
+          "aggregation": "median",
+          "group_by": "none"
+        }
+      ],
+      "actual": {
+        "status": "clarify",
+        "reason": "План не совпадает с явно названными числовыми столбцами. Уточните нужные показатели.",
+        "metrics": [],
+        "aggregation": "median",
+        "group_by": null
+      },
+      "model_attempts": 1,
+      "validation_feedback": [],
+      "plan_matches_expected": false,
+      "calculation_executed": false,
+      "expected_table": [
+        {
+          "group": null,
+          "rows": 8,
+          "values": {
+            "c4": 3.5
+          },
+          "valid_counts": {
+            "c4": 7
+          },
+          "missing_counts": {
+            "c4": 1
+          }
+        }
+      ],
+      "numbers_independently_verified": false,
+      "passed": false,
+      "seconds": 5.003
+    },
+    {
+      "id": "03",
+      "kind": "supported",
+      "question": "Сравни сумму «Посещения» по «Округ».",
+      "expected": {
+        "status": "ready",
+        "metrics": [
+          "c3"
+        ],
+        "aggregation": "sum",
+        "group_by": "c1"
+      },
+      "model_outputs": [
+        {
+          "status": "ready",
+          "reason": "Доступны числовые поля для расчёта суммы «Посещения» по «Округ».",
+          "metrics": [
+            "c3"
+          ],
+          "aggregation": "sum",
+          "group_by": "c1"
+        }
+      ],
+      "actual": {
+        "status": "ready",
+        "reason": "Доступны числовые поля для расчёта суммы «Посещения» по «Округ».",
+        "metrics": [
+          "c3"
+        ],
+        "aggregation": "sum",
+        "group_by": "c1"
+      },
+      "model_attempts": 1,
+      "validation_feedback": [],
+      "plan_matches_expected": true,
+      "calculation_executed": true,
+      "expected_table": [
+        {
+          "group": "Альфа",
+          "rows": 3,
+          "values": {
+            "c3": 54.0
+          },
+          "valid_counts": {
+            "c3": 3
+          },
+          "missing_counts": {
+            "c3": 0
+          }
+        },
+        {
+          "group": "Бета",
+          "rows": 3,
+          "values": {
+            "c3": 36.0
+          },
+          "valid_counts": {
+            "c3": 3
+          },
+          "missing_counts": {
+            "c3": 0
+          }
+        },
+        {
+          "group": "Гамма",
+          "rows": 2,
+          "values": {
+            "c3": 42.0
+          },
+          "valid_counts": {
+            "c3": 1
+          },
+          "missing_counts": {
+            "c3": 1
+          }
+        }
+      ],
+      "numbers_independently_verified": true,
+      "actual_table": [
+        {
+          "group": "Альфа",
+          "rows": 3,
+          "values": {
+            "c3": 54.0
+          },
+          "valid_counts": {
+            "c3": 3
+          },
+          "missing_counts": {
+            "c3": 0
+          }
+        },
+        {
+          "group": "Бета",
+          "rows": 3,
+          "values": {
+            "c3": 36.0
+          },
+          "valid_counts": {
+            "c3": 3
+          },
+          "missing_counts": {
+            "c3": 0
+          }
+        },
+        {
+          "group": "Гамма",
+          "rows": 2,
+          "values": {
+            "c3": 42.0
+          },
+          "valid_counts": {
+            "c3": 1
+          },
+          "missing_counts": {
+            "c3": 1
+          }
+        }
+      ],
+      "passed": true,
+      "seconds": 4.825
+    },
+    {
+      "id": "04",
+      "kind": "supported",
+      "question": "Покажи медиану «Посещения» по «Тип мастерской».",
+      "expected": {
+        "status": "ready",
+        "metrics": [
+          "c3"
+        ],
+        "aggregation": "median",
+        "group_by": "c2"
+      },
+      "model_outputs": [
+        {
+          "status": "ready",
+          "reason": "Запрос требует вычисления медианы количества посещений по типам мастерских.",
+          "metrics": [
+            "c3"
+          ],
+          "aggregation": "median",
+          "group_by": "c2"
+        }
+      ],
+      "actual": {
+        "status": "ready",
+        "reason": "Запрос требует вычисления медианы количества посещений по типам мастерских.",
+        "metrics": [
+          "c3"
+        ],
+        "aggregation": "median",
+        "group_by": "c2"
+      },
+      "model_attempts": 1,
+      "validation_feedback": [],
+      "plan_matches_expected": true,
+      "calculation_executed": true,
+      "expected_table": [
+        {
+          "group": "Ремонтная",
+          "rows": 4,
+          "values": {
+            "c3": 12.0
+          },
+          "valid_counts": {
+            "c3": 3
+          },
+          "missing_counts": {
+            "c3": 1
+          }
+        },
+        {
+          "group": "Учебная",
+          "rows": 4,
+          "values": {
+            "c3": 27.0
+          },
+          "valid_counts": {
+            "c3": 4
+          },
+          "missing_counts": {
+            "c3": 0
+          }
+        }
+      ],
+      "numbers_independently_verified": true,
+      "actual_table": [
+        {
+          "group": "Ремонтная",
+          "rows": 4,
+          "values": {
+            "c3": 12.0
+          },
+          "valid_counts": {
+            "c3": 3
+          },
+          "missing_counts": {
+            "c3": 1
+          }
+        },
+        {
+          "group": "Учебная",
+          "rows": 4,
+          "values": {
+            "c3": 27.0
+          },
+          "valid_counts": {
+            "c3": 4
+          },
+          "missing_counts": {
+            "c3": 0
+          }
+        }
+      ],
+      "passed": true,
+      "seconds": 4.759
+    },
+    {
+      "id": "05",
+      "kind": "supported",
+      "question": "Сравни среднее «Часы работы» по «Округ».",
+      "expected": {
+        "status": "ready",
+        "metrics": [
+          "c4"
+        ],
+        "aggregation": "mean",
+        "group_by": "c1"
+      },
+      "model_outputs": [
+        {
+          "status": "ready",
+          "reason": "Доступны числовые поля для расчёта среднего значения по категориальному полю 'Округ'.",
+          "metrics": [
+            "c3",
+            "c4"
+          ],
+          "aggregation": "mean",
+          "group_by": "c1"
+        }
+      ],
+      "actual": {
+        "status": "clarify",
+        "reason": "План не совпадает с явно названными числовыми столбцами. Уточните нужные показатели.",
+        "metrics": [],
+        "aggregation": "mean",
+        "group_by": "c1"
+      },
+      "model_attempts": 1,
+      "validation_feedback": [],
+      "plan_matches_expected": false,
+      "calculation_executed": false,
+      "expected_table": [
+        {
+          "group": "Альфа",
+          "rows": 3,
+          "values": {
+            "c4": 3.833333
+          },
+          "valid_counts": {
+            "c4": 3
+          },
+          "missing_counts": {
+            "c4": 0
+          }
+        },
+        {
+          "group": "Бета",
+          "rows": 3,
+          "values": {
+            "c4": 2.166667
+          },
+          "valid_counts": {
+            "c4": 3
+          },
+          "missing_counts": {
+            "c4": 0
+          }
+        },
+        {
+          "group": "Гамма",
+          "rows": 2,
+          "values": {
+            "c4": 4.0
+          },
+          "valid_counts": {
+            "c4": 1
+          },
+          "missing_counts": {
+            "c4": 1
+          }
+        }
+      ],
+      "numbers_independently_verified": false,
+      "passed": false,
+      "seconds": 5.29
+    },
+    {
+      "id": "06",
+      "kind": "supported",
+      "question": "Рассчитай сумму отдельно для «Посещения» и «Часы работы» по всей таблице, без группировки.",
+      "expected": {
+        "status": "ready",
+        "metrics": [
+          "c3",
+          "c4"
+        ],
+        "aggregation": "sum",
+        "group_by": null
+      },
+      "model_outputs": [
+        {
+          "status": "ready",
+          "reason": "Данные подтверждены, необходимые числовые поля доступны, операция 'sum' допустима, группировка не требуется.",
+          "metrics": [
+            "c3",
+            "c4"
+          ],
+          "aggregation": "sum",
+          "group_by": "none"
+        }
+      ],
+      "actual": {
+        "status": "ready",
+        "reason": "Данные подтверждены, необходимые числовые поля доступны, операция 'sum' допустима, группировка не требуется.",
+        "metrics": [
+          "c3",
+          "c4"
+        ],
+        "aggregation": "sum",
+        "group_by": null
+      },
+      "model_attempts": 1,
+      "validation_feedback": [],
+      "plan_matches_expected": true,
+      "calculation_executed": true,
+      "expected_table": [
+        {
+          "group": null,
+          "rows": 8,
+          "values": {
+            "c3": 132.0,
+            "c4": 22.0
+          },
+          "valid_counts": {
+            "c3": 7,
+            "c4": 7
+          },
+          "missing_counts": {
+            "c3": 1,
+            "c4": 1
+          }
+        }
+      ],
+      "numbers_independently_verified": true,
+      "actual_table": [
+        {
+          "group": null,
+          "rows": 8,
+          "values": {
+            "c3": 132.0,
+            "c4": 22.0
+          },
+          "valid_counts": {
+            "c3": 7,
+            "c4": 7
+          },
+          "missing_counts": {
+            "c3": 1,
+            "c4": 1
+          }
+        }
+      ],
+      "passed": true,
+      "seconds": 5.758
+    },
+    {
+      "id": "07",
+      "kind": "supported",
+      "question": "Сравни среднее отдельно для «Посещения» и «Часы работы» по «Тип мастерской».",
+      "expected": {
+        "status": "ready",
+        "metrics": [
+          "c3",
+          "c4"
+        ],
+        "aggregation": "mean",
+        "group_by": "c2"
+      },
+      "model_outputs": [
+        {
+          "status": "ready",
+          "reason": "Запрос требует расчёта среднего значения для двух числовых полей по группировке 'Тип мастерской'.",
+          "metrics": [
+            "c3",
+            "c4"
+          ],
+          "aggregation": "mean",
+          "group_by": "c2"
+        }
+      ],
+      "actual": {
+        "status": "ready",
+        "reason": "Запрос требует расчёта среднего значения для двух числовых полей по группировке 'Тип мастерской'.",
+        "metrics": [
+          "c3",
+          "c4"
+        ],
+        "aggregation": "mean",
+        "group_by": "c2"
+      },
+      "model_attempts": 1,
+      "validation_feedback": [],
+      "plan_matches_expected": true,
+      "calculation_executed": true,
+      "expected_table": [
+        {
+          "group": "Ремонтная",
+          "rows": 4,
+          "values": {
+            "c3": 12.0,
+            "c4": 2.75
+          },
+          "valid_counts": {
+            "c3": 3,
+            "c4": 4
+          },
+          "missing_counts": {
+            "c3": 1,
+            "c4": 0
+          }
+        },
+        {
+          "group": "Учебная",
+          "rows": 4,
+          "values": {
+            "c3": 24.0,
+            "c4": 3.666667
+          },
+          "valid_counts": {
+            "c3": 4,
+            "c4": 3
+          },
+          "missing_counts": {
+            "c3": 0,
+            "c4": 1
+          }
+        }
+      ],
+      "numbers_independently_verified": true,
+      "actual_table": [
+        {
+          "group": "Ремонтная",
+          "rows": 4,
+          "values": {
+            "c3": 12.0,
+            "c4": 2.75
+          },
+          "valid_counts": {
+            "c3": 3,
+            "c4": 4
+          },
+          "missing_counts": {
+            "c3": 1,
+            "c4": 0
+          }
+        },
+        {
+          "group": "Учебная",
+          "rows": 4,
+          "values": {
+            "c3": 24.0,
+            "c4": 3.666667
+          },
+          "valid_counts": {
+            "c3": 4,
+            "c4": 3
+          },
+          "missing_counts": {
+            "c3": 0,
+            "c4": 1
+          }
+        }
+      ],
+      "passed": true,
+      "seconds": 5.541
+    },
+    {
+      "id": "08",
+      "kind": "supported",
+      "question": "Нужна медиана «Посещения» по «Округ» за 2025 год.",
+      "expected": {
+        "status": "ready",
+        "metrics": [
+          "c3"
+        ],
+        "aggregation": "median",
+        "group_by": "c1"
+      },
+      "model_outputs": [
+        {
+          "status": "ready",
+          "reason": "Доступны числовые поля для расчёта медианы по группировке 'Округ'.",
+          "metrics": [
+            "c3"
+          ],
+          "aggregation": "median",
+          "group_by": "c1"
+        }
+      ],
+      "actual": {
+        "status": "ready",
+        "reason": "Доступны числовые поля для расчёта медианы по группировке 'Округ'.",
+        "metrics": [
+          "c3"
+        ],
+        "aggregation": "median",
+        "group_by": "c1"
+      },
+      "model_attempts": 1,
+      "validation_feedback": [],
+      "plan_matches_expected": true,
+      "calculation_executed": true,
+      "expected_table": [
+        {
+          "group": "Альфа",
+          "rows": 3,
+          "values": {
+            "c3": 18.0
+          },
+          "valid_counts": {
+            "c3": 3
+          },
+          "missing_counts": {
+            "c3": 0
+          }
+        },
+        {
+          "group": "Бета",
+          "rows": 3,
+          "values": {
+            "c3": 6.0
+          },
+          "valid_counts": {
+            "c3": 3
+          },
+          "missing_counts": {
+            "c3": 0
+          }
+        },
+        {
+          "group": "Гамма",
+          "rows": 2,
+          "values": {
+            "c3": 42.0
+          },
+          "valid_counts": {
+            "c3": 1
+          },
+          "missing_counts": {
+            "c3": 1
+          }
+        }
+      ],
+      "numbers_independently_verified": true,
+      "actual_table": [
+        {
+          "group": "Альфа",
+          "rows": 3,
+          "values": {
+            "c3": 18.0
+          },
+          "valid_counts": {
+            "c3": 3
+          },
+          "missing_counts": {
+            "c3": 0
+          }
+        },
+        {
+          "group": "Бета",
+          "rows": 3,
+          "values": {
+            "c3": 6.0
+          },
+          "valid_counts": {
+            "c3": 3
+          },
+          "missing_counts": {
+            "c3": 0
+          }
+        },
+        {
+          "group": "Гамма",
+          "rows": 2,
+          "values": {
+            "c3": 42.0
+          },
+          "valid_counts": {
+            "c3": 1
+          },
+          "missing_counts": {
+            "c3": 1
+          }
+        }
+      ],
+      "passed": true,
+      "seconds": 5.242
+    },
+    {
+      "id": "09",
+      "kind": "unsupported_weights",
+      "question": "Рассчитай взвешенное среднее «Посещения» по «Округ» с учётом весов обследования.",
+      "expected": {
+        "status_in": [
+          "unsupported"
+        ],
+        "metrics": [],
+        "calculation_allowed": false
+      },
+      "model_outputs": [
+        {
+          "status": "unsupported",
+          "reason": "Взвешенное среднее не поддерживается для данного типа запроса. Расчёт невзвешенный, по всей таблице, без фильтров и группировки допустим.",
+          "metrics": [],
+          "aggregation": "mean",
+          "group_by": "none"
+        }
+      ],
+      "actual": {
+        "status": "unsupported",
+        "reason": "Взвешенные оценки пока не поддерживаются.",
+        "metrics": [],
+        "aggregation": "mean",
+        "group_by": null
+      },
+      "model_attempts": 1,
+      "validation_feedback": [],
+      "plan_matches_expected": true,
+      "calculation_executed": false,
+      "execution_blocked": true,
+      "passed": true,
+      "seconds": 5.711
+    },
+    {
+      "id": "10",
+      "kind": "unsupported_filter",
+      "question": "Рассчитай среднее «Посещения» только для строк, где «Часы работы» больше 3.",
+      "expected": {
+        "status_in": [
+          "unsupported"
+        ],
+        "metrics": [],
+        "calculation_allowed": false
+      },
+      "model_outputs": [
+        {
+          "status": "unsupported",
+          "reason": "Запрос требует неподдерживаемого метода - вычисление среднего по условию 'Часы работы > 3' не поддерживается в рамках описательного расчёта.",
+          "metrics": [],
+          "aggregation": "mean",
+          "group_by": "none"
+        }
+      ],
+      "actual": {
+        "status": "unsupported",
+        "reason": "Фильтрация строк пока не поддерживается; расчёт выполняется по всей таблице.",
+        "metrics": [],
+        "aggregation": "mean",
+        "group_by": null
+      },
+      "model_attempts": 1,
+      "validation_feedback": [],
+      "plan_matches_expected": true,
+      "calculation_executed": false,
+      "execution_blocked": true,
+      "passed": true,
+      "seconds": 5.852
+    },
+    {
+      "id": "11",
+      "kind": "unsupported_forecast",
+      "question": "Сделай прогноз «Посещения» по «Округ» на следующий год.",
+      "expected": {
+        "status_in": [
+          "unsupported"
+        ],
+        "metrics": [],
+        "calculation_allowed": false
+      },
+      "model_outputs": [
+        {
+          "status": "unsupported",
+          "reason": "Прогнозирование по окружению не поддерживается в рамках описательного расчёта.",
+          "metrics": [],
+          "aggregation": "mean",
+          "group_by": "none"
+        }
+      ],
+      "actual": {
+        "status": "unsupported",
+        "reason": "Прогнозы пока не поддерживаются.",
+        "metrics": [],
+        "aggregation": "mean",
+        "group_by": null
+      },
+      "model_attempts": 1,
+      "validation_feedback": [],
+      "plan_matches_expected": true,
+      "calculation_executed": false,
+      "execution_blocked": true,
+      "passed": true,
+      "seconds": 4.61
+    },
+    {
+      "id": "12",
+      "kind": "ambiguous_operation",
+      "question": "Сравни «Посещения» по «Округ».",
+      "expected": {
+        "status_in": [
+          "clarify"
+        ],
+        "metrics": [],
+        "calculation_allowed": false
+      },
+      "model_outputs": [
+        {
+          "status": "ready",
+          "reason": "Доступны числовые поля 'Посещения' и 'Округ', операция 'mean' допустима, группировка 'Округ' является категориальным полем.",
+          "metrics": [
+            "c3"
+          ],
+          "aggregation": "mean",
+          "group_by": "c1"
+        }
+      ],
+      "actual": {
+        "status": "ready",
+        "reason": "Доступны числовые поля 'Посещения' и 'Округ', операция 'mean' допустима, группировка 'Округ' является категориальным полем.",
+        "metrics": [
+          "c3"
+        ],
+        "aggregation": "mean",
+        "group_by": "c1"
+      },
+      "model_attempts": 1,
+      "validation_feedback": [],
+      "plan_matches_expected": false,
+      "calculation_executed": false,
+      "execution_blocked": false,
+      "passed": false,
+      "seconds": 6.728
+    }
+  ],
+  "completed_cases": 12,
+  "passed_cases": 9,
+  "completed": true,
+  "updated_at_utc": "2026-10-12T15:10:52.805802+00:00"
+}

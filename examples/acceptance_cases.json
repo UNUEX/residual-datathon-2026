@@ -1,0 +1,35 @@
+{
+  "suite": "tables-final-acceptance-2026-10-12",
+  "frozen_at_utc": "2026-10-12T15:06:18Z",
+  "purpose": "Открытая внутренняя приёмочная проверка процесса планирования и расчёта на новой авторской синтетической таблице. Не независимая оценка точности модели, не пользовательский пилот и не официальные статистические данные.",
+  "protocol": "12 вопросов и ожидаемых решений зафиксированы до запуска модели. Один проход, без переформулировок вопросов и настройки промпта по результатам. Обычная внутренняя повторная попытка приложения при ошибке валидации разрешена и учитывается отдельно. Отказы и уточнения проверяются на уровне приложения, отдельно от сырого ответа модели.",
+  "data": {
+    "path": "examples/acceptance_workshops.csv",
+    "label": "Вымышленные муниципальные мастерские — приёмочная проверка",
+    "observation_unit": "Одна вымышленная муниципальная мастерская за 2025 год",
+    "period": "2025",
+    "synthetic_data": true,
+    "disclosure": "Все строки и названия округов вымышлены. Не содержат сведений о реальных учреждениях или людях.",
+    "columns": [
+      {"id": "c0", "label": "Код", "role": "identifier", "unit": "", "decimal_separator": "."},
+      {"id": "c1", "label": "Округ", "role": "category", "unit": "", "decimal_separator": "."},
+      {"id": "c2", "label": "Тип мастерской", "role": "category", "unit": "", "decimal_separator": "."},
+      {"id": "c3", "label": "Посещения", "role": "number", "unit": "посещений", "decimal_separator": "."},
+      {"id": "c4", "label": "Часы работы", "role": "number", "unit": "часов", "decimal_separator": "."}
+    ]
+  },
+  "cases": [
+    {"id": "01", "kind": "supported", "question": "Рассчитай среднее «Посещения» по всей таблице за 2025 год, без группировки.", "expected": {"status": "ready", "metrics": ["c3"], "aggregation": "mean", "group_by": null}},
+    {"id": "02", "kind": "supported", "question": "Нужна медиана «Часы работы» по всей таблице, без группировки.", "expected": {"status": "ready", "metrics": ["c4"], "aggregation": "median", "group_by": null}},
+    {"id": "03", "kind": "supported", "question": "Сравни сумму «Посещения» по «Округ».", "expected": {"status": "ready", "metrics": ["c3"], "aggregation": "sum", "group_by": "c1"}},
+    {"id": "04", "kind": "supported", "question": "Покажи медиану «Посещения» по «Тип мастерской».", "expected": {"status": "ready", "metrics": ["c3"], "aggregation": "median", "group_by": "c2"}},
+    {"id": "05", "kind": "supported", "question": "Сравни среднее «Часы работы» по «Округ».", "expected": {"status": "ready", "metrics": ["c4"], "aggregation": "mean", "group_by": "c1"}},
+    {"id": "06", "kind": "supported", "question": "Рассчитай сумму отдельно для «Посещения» и «Часы работы» по всей таблице, без группировки.", "expected": {"status": "ready", "metrics": ["c3", "c4"], "aggregation": "sum", "group_by": null}},
+    {"id": "07", "kind": "supported", "question": "Сравни среднее отдельно для «Посещения» и «Часы работы» по «Тип мастерской».", "expected": {"status": "ready", "metrics": ["c3", "c4"], "aggregation": "mean", "group_by": "c2"}},
+    {"id": "08", "kind": "supported", "question": "Нужна медиана «Посещения» по «Округ» за 2025 год.", "expected": {"status": "ready", "metrics": ["c3"], "aggregation": "median", "group_by": "c1"}},
+    {"id": "09", "kind": "unsupported_weights", "question": "Рассчитай взвешенное среднее «Посещения» по «Округ» с учётом весов обследования.", "expected": {"status_in": ["unsupported"], "metrics": [], "calculation_allowed": false}},
+    {"id": "10", "kind": "unsupported_filter", "question": "Рассчитай среднее «Посещения» только для строк, где «Часы работы» больше 3.", "expected": {"status_in": ["unsupported"], "metrics": [], "calculation_allowed": false}},
+    {"id": "11", "kind": "unsupported_forecast", "question": "Сделай прогноз «Посещения» по «Округ» на следующий год.", "expected": {"status_in": ["unsupported"], "metrics": [], "calculation_allowed": false}},
+    {"id": "12", "kind": "ambiguous_operation", "question": "Сравни «Посещения» по «Округ».", "expected": {"status_in": ["clarify"], "metrics": [], "calculation_allowed": false}}
+  ]
+}

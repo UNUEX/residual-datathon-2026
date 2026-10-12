@@ -64,7 +64,13 @@ class TabularService:
 
     def _dataset_display(self, dataset):
         # Recognize the bundled examples by content, even if renamed by the user.
-        return {**dataset, "synthetic_data": dataset.get("source", {}).get("sha256") in self.example_hashes}
+        return {**dataset, "synthetic_data": dataset.get("declared_synthetic") is True
+                or dataset.get("source", {}).get("sha256") in self.example_hashes}
+
+    def _synthetic_notice(self, dataset):
+        if dataset.get("source", {}).get("sha256") in self.example_hashes:
+            return "Учебные вымышленные данные из примеров приложения. Результаты не являются официальной статистикой."
+        return "Пользователь указал синтетическое или учебное происхождение данных. Результаты описывают этот набор и не являются оценками населения."
 
     def _identifier(self, value):
         if not isinstance(value, str) or not re.fullmatch(r"[a-f0-9]{32}", value):
@@ -146,19 +152,24 @@ class TabularService:
     def _fingerprint(dataset):
         keys = ("id", "label", "observation_unit", "period", "columns", "row_count",
                 "source", "source_csv_sha256")
+        if "declared_synthetic" in dataset:
+            keys += ("declared_synthetic",)
         return digest(json_bytes({key: dataset[key] for key in keys}))
 
     def register(self, payload):
         item, selected = self._selected(payload)
         profiles = calculation.profile_columns(selected["columns"], selected["rows"])
         columns = calculation.validate_columns(profiles, payload.get("columns"))
+        declared_synthetic = payload.get("declared_synthetic", False)
+        if not isinstance(declared_synthetic, bool):
+            raise TableError("Укажите признак синтетических данных как да или нет.")
         for index, column in enumerate(columns):
             values = [row[index] for row in selected["rows"]]
-            column["missing_count"] = sum(calculation.is_missing(value) for value in values)
+            column["missing_count"] = sum(calculation.is_missing(value, column["missing_values"]) for value in values)
             column["unique_count"] = len(set(values))
             column["invalid_count"] = 0
             if column["role"] == "number":
-                column["invalid_count"] = sum(not calculation.is_missing(value) and
+                column["invalid_count"] = sum(not calculation.is_missing(value, column["missing_values"]) and
                     calculation.parse_number(value, column["decimal_separator"]) is None for value in values)
                 if column["missing_count"] + column["invalid_count"] == len(values):
                     raise TableError(f"«{column['label']}»: нет пригодных чисел с выбранным десятичным разделителем. Проверьте роль и разделитель.")
@@ -172,7 +183,7 @@ class TabularService:
             "label": text_field(payload.get("label"), "Название набора", 120, True),
             "observation_unit": text_field(payload.get("observation_unit"), "Что означает одна строка", 120, True),
             "period": text_field(payload.get("period", ""), "Период", 80),
-            "columns": columns, "row_count": len(selected["rows"]),
+            "columns": columns, "row_count": len(selected["rows"]), "declared_synthetic": declared_synthetic,
             "warnings": selected["warnings"], "source_csv_sha256": digest(raw_csv),
             "source": {"import_id": item["id"], "filename": item["filename"], "format": item["format"],
                 "table": selected["table_label"], "table_id": payload["table_id"],
@@ -247,7 +258,7 @@ class TabularService:
             "sources": [{key: dataset["source"][key] for key in ("filename", "table", "sha256", "header_row")}],
             "calculation_code_sha256": self.code_hash, "calculation_version": "tables-1.0",
             "model_used_for": "plan_only"}
-        report["limitations"].insert(0, "Учебные вымышленные данные из примеров приложения. Результаты не описывают реальные школы или учреждения и не являются официальной статистикой." if dataset["synthetic_data"] else "Происхождение данных и смысл столбцов подтверждает пользователь. Результат описывает загруженные строки и сам по себе не является официальной оценкой населения.")
+        report["limitations"].insert(0, self._synthetic_notice(dataset) if dataset["synthetic_data"] else "Происхождение данных и смысл столбцов подтверждает пользователь. Результат описывает загруженные строки и сам по себе не является официальной оценкой населения.")
         self._write(self.root / "reports" / (report["id"] + ".json"), report)
         # Bundle the source of the calculator, so future application updates do not change reproduction.
         (self.root / "reports" / (report["id"] + ".py")).write_bytes(self.calculation_source)
@@ -256,8 +267,8 @@ class TabularService:
     def report(self, identifier):
         result = self._read("reports", identifier)
         result["dataset"] = self._dataset_display(result["dataset"])
-        if result["dataset"]["synthetic_data"] and not any("Учебные вымышленные данные" in line for line in result["limitations"]):
-            result["limitations"].insert(0, "Учебные вымышленные данные из примеров приложения; не официальная статистика.")
+        if result["dataset"]["synthetic_data"] and not any("Учебные вымышленные данные" in line or "синтетич" in line.lower() for line in result["limitations"]):
+            result["limitations"].insert(0, self._synthetic_notice(result["dataset"]))
         return result
 
     def export(self, identifier, format="json"):
@@ -389,7 +400,7 @@ class TabularService:
             '@media(max-width:600px){body{margin:12px auto;padding:16px}h1{font-size:24px}figure{padding:12px}}'
             '@media print{body{margin:0;background:white}figure{border-radius:0}.report-chart{min-width:0}}</style></head><body>'
             '<p>RESIDUAL · Воспроизводимая аналитическая справка</p>'
-            + ('<p class="sample"><strong>Учебный пример · вымышленные данные</strong><br>Результаты не являются официальной статистикой.</p>' if synthetic else "")
+            + ('<p class="sample"><strong>Учебные или синтетические данные</strong><br>Результаты не являются официальными оценками населения.</p>' if synthetic else "")
             + "<h1>" + escape(report["question"]) + "</h1><p>" + escape(dataset["label"]) + " · " + escape(report["created_at"]) + "</p>"
             + "".join("<p>" + escape(line) + "</p>" for line in report["summary"])
             + "<h2>Сравнение значений</h2>" + "".join(TabularService._html_chart(report, m) for m in metrics)

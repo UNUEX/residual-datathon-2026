@@ -146,8 +146,8 @@ class BriefHtmlTests(unittest.TestCase):
             with self.subTest(operation=operation):
                 report["plan"]["aggregation"] = operation
                 document = TabularService._html(report)
-                self.assertIn("Учебный пример · вымышленные данные", document)
-                self.assertIn("не являются официальной статистикой", document)
+                self.assertIn("Учебные или синтетические данные", document)
+                self.assertIn("не являются официальными оценками населения", document)
                 self.assertIn(method, document)
                 self.assertIn(report["summary"][0], document)
                 self.assertNotIn("sum(valid values)", document)

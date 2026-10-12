@@ -99,6 +99,7 @@ class Handler(BaseHTTPRequestHandler):
                 return self.reply(200, (ROOT / 'examples' / 'import' / name).read_bytes(), mime, name)
             assets = {'/': ('tables.html', 'text/html'), '/housing/': ('index.html', 'text/html'),
                       '/tables.js': ('tables.js', 'text/javascript'), '/tables.css': ('tables.css', 'text/css'),
+                      '/workspace.css': ('workspace.css', 'text/css'),
                       '/app.js': ('app.js', 'text/javascript'), '/style.css': ('style.css', 'text/css'),
                       '/research.js': ('research.js', 'text/javascript'), '/research.css': ('research.css', 'text/css'),
                       '/quality': ('quality.html', 'text/html'), '/quality/': ('quality.html', 'text/html'),
